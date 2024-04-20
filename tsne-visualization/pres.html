@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>pres.utf8.md</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="pres_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+<link rel="stylesheet" href="pres_files/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="section" class="slide level2 title-slide">
+<h2></h2>
+<style>
+.reveal h1, .reveal h2 {
+    font-family: auto;    
+    text-transform: none;
+}
+
+.author {
+    text-align: right;
+}
+
+.date {
+    font-family: auto !important;
+    text-transform: none !important;
+    font-size: 1em !important;
+    text-align: right;
+}
+
+li {
+    margin-top: 1rem !important;
+}    
+    
+.normaltext p, .normaltext li {
+    font-size: 25pt !important;
+    line-height: 25pt !important;
+  }
+
+.smalltext p, .smalltext li {
+    font-size: 20pt !important;
+    line-height: 20pt !important;
+  }
+
+.tinytext {
+    display: block;
+    font-size: 1rem !important;
+    text-align: right;
+    }
+    
+.jumbotron {
+    text-align: justify !important;
+    background: #444 !important;
+    padding: 5px 50px !important;
+    border-radius: 10px !important;
+    border: 2px solid !important;
+}
+
+.author-details h1 {
+ margin-bottom: 5rem !important;
+}
+
+.author-details p {
+ text-align: right !important;
+ margin: 0 !important;
+}
+
+</style>
+<div class="author-details">
+<h1>
+t-SNE: A way to Visualize Multidimensional Dataset
+</h1>
+<p>Subhrajyoty Roy</p>
+<p><strong>Mentor: </strong> Dr. Ayanendranath Basu, ISRU</p>
+<p><strong>Date: </strong> 13th December, 2019</p>
+</div>
+</section>
+<section id="introduction" class="slide level2 normaltext">
+<h2>Introduction</h2>
+<ul>
+<li><p>t-SNE (<a href="https://lvdmaaten.github.io/tsne/" target="_blank">t distributed Stochastic Neighbour Embedding</a>) is an unsupervised non-linear projection / dimension reduction technique.</p></li>
+<li><p>Greatly used for visualizing multidimensional data nowadays, i.e. projecting hundreds of dimensions only to 2D or 3D, so that some pattern persists.</p></li>
+<li><p>t-SNE has been used for visualization in a wide range of applications, including computer security research, music analysis, text analysis, cancer research, bioinformatics and biomedical signal processing.</p></li>
+</ul>
+</section>
+<section id="t-sne-on-mnist-dataset" class="slide level2 normaltext">
+<h2>t-SNE on MNIST dataset</h2>
+<p>Let’s first look at how t-SNE performs on <a href="https://en.wikipedia.org/wiki/MNIST_database" target="_blank">MNIST</a> dataset.</p>
+<p><img src="figures/MnistExamples.png" width="500"></p>
+<ul>
+<li>60,000 handwritten digits from 0 to 9.</li>
+<li>Black &amp; White 28x28 images.</li>
+<li>Represented by 784 dimensional vectors.</li>
+</ul>
+</section>
+<section id="t-sne-on-mnist-dataset-contd." class="slide level2 smalltext">
+<h2>t-SNE on MNIST dataset (Contd.)</h2>
+<p>Due to limited resource, tSNE is applied on a random subset of MNIST dataset, having only 6000 samples. Without any supervised information about the actual digits, from the vectors alone it learned some clusters in the dataset.</p>
+<p><img src="figures/digits_tsne-generated_001.png" width="400"></p>
+<p><a href="javascript:void(0)">Let’s add colors corresponding to different digits</a>.</p>
+</section>
+<section id="t-sne-on-mnist-dataset-contd.-1" class="slide level2 normaltext">
+<h2>t-SNE on MNIST dataset (Contd.)</h2>
+<p>t-SNE can identify the clusters in unsupervised way and can project the 784 dimensional data only onto 2 dimensions retaining the structure.</p>
+<p><img src="figures/digits_tsne-generated_002.png" width="400"></p>
+</section>
+<section id="problem-formalization" class="slide level2 normaltext">
+<h2>Problem Formalization</h2>
+<ul>
+<li><p>We have a dataset <span class="math inline">\(X_1, X_2, \dots X_n\)</span> where each <span class="math inline">\(X_i \in \mathbb{R}^d\)</span> where <span class="math inline">\(d\)</span> is considerably high. It is often the case that these datapoints, actually lie in a lower dimensional manifold. These <span class="math inline">\(X_i\)</span>’s are elements of feature space (input space).</p></li>
+<li><p>We want to have their representations <span class="math inline">\(Y_1, Y_2, \dots Y_n\)</span> where each <span class="math inline">\(Y_i \in \mathbb{R}^p\)</span>, where <span class="math inline">\(p\)</span> usually is 2 or 3 (since we want to visualize). This <span class="math inline">\(Y_i\)</span>’s are elements of the embedded space.</p></li>
+<li><p><span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span> should be related in some way, so that <span class="math inline">\(Y_i\)</span> is a very accurate representation of <span class="math inline">\(X_i\)</span> in terms of its position in the manifold.</p></li>
+</ul>
+</section>
+<section id="what-is-a-good-representative" class="slide level2 normaltext">
+<h2>What is a good representative?</h2>
+<p>Euclidean distance vs The distance through the manifold.</p>
+<p><img src="pres_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" /></p>
+</section>
+<section id="what-is-a-good-representative-1" class="slide level2 normaltext">
+<h2>What is a good representative?</h2>
+<p>Ideal visualization would be;</p>
+<p><img src="pres_files/figure-revealjs/unnamed-chunk-2-1.png" width="768" /></p>
+<p><a href="javascript:void(0)">Idea</a> is to preserve the local distances, but not the global ones.</p>
+</section>
+<section id="stochastic-neighbour-embedding" class="slide level2 smalltext">
+<h2>Stochastic Neighbour Embedding</h2>
+<ul>
+<li><p>For each datapoint <span class="math inline">\(X_i\)</span>, define <span class="math display">\[p_{j|i} \propto \exp\left( -\frac{\Vert X_i - X_j\Vert^2}{2\sigma_i^2} \right) \quad \forall j = 1, 2, \dots n; j\neq i\]</span></p></li>
+<li><p>Define <span class="math inline">\(p_{i|i} = 0 \quad \forall i = 1, 2, \dots n\)</span>.</p></li>
+<li><p><span class="math inline">\(p_{j|i}\)</span> can be interpreted as the likelihood that datapoint <span class="math inline">\(X_i\)</span> would pick datapoint <span class="math inline">\(X_j\)</span> as its neighbours if neighbours are picked according to a Gaussian distribution centered at <span class="math inline">\(X_i\)</span>.</p></li>
+<li><p>Even if all variables are not quantitative, as long as a similarity between two datapoints can be defined, they can be scaled to obtain <span class="math inline">\(p_{j|i}\)</span>.</p></li>
+<li><p>Note that <span class="math inline">\(p_{i|j}\)</span> and <span class="math inline">\(p_{j | i}\)</span> are different because of different normalization factors.</p></li>
+</ul>
+</section>
+<section id="stochastic-neighbour-embedding-1" class="slide level2 smalltext">
+<h2>Stochastic Neighbour Embedding</h2>
+<ul>
+<li>Similarly define <span class="math inline">\(q_{j|i}\)</span> as the analogus probabilistic similarities in embedded space.</li>
+</ul>
+<p><span class="math display">\[q_{j|i} \propto  \exp\left( -\Vert Y_i - Y_j\Vert^2 \right) \quad \forall j = 1, 2, \dots n; j\neq i\]</span></p>
+<ul>
+<li><p>Note that, <span class="math inline">\(\sigma_i\)</span>’s are different in feature space for each datapoint <span class="math inline">\(X_i\)</span>. This is chosen such that, for each datapoint <span class="math inline">\(X_i\)</span>, the ball centered at <span class="math inline">\(X_i\)</span> of radius <span class="math inline">\(\sigma_i\)</span> contains approximately same number of other datapoints. This is obtained through fixing the <a href="https://en.wikipedia.org/wiki/Perplexity" target="_blank">Perplexity</a> of the Gaussian distributions to a fixed quantity.</p></li>
+<li><p>Intuitively, for dense regions in feature space, we set low <span class="math inline">\(\sigma_i\)</span>, and for sparse regions we set high <span class="math inline">\(\sigma_i\)</span>.</p></li>
+</ul>
+</section>
+<section id="stochastic-neighbour-embedding-2" class="slide level2 smalltext">
+<h2>Stochastic Neighbour Embedding</h2>
+<ul>
+<li><p>If <span class="math inline">\(Y_i\)</span>’s accurately represents its higher dimensional analogue <span class="math inline">\(X_i\)</span>, then; <span class="math display">\[P_i = \left( p_{1|i}, \dots p_{(i-1)|i}, p_{(i+1)|i}, \dots p_{n|i} \right) \\\approx \left( q_{1|i}, \dots q_{(i-1)|i}, q_{(i+1)|i}, \dots q_{n|i} \right) = Q_i\]</span></p></li>
+<li><p>So, we can wish to minimize Kullback-Leibler divergence between <span class="math inline">\(P_i\)</span> and <span class="math inline">\(Q_i\)</span> for each datapoint <span class="math inline">\(X_i\)</span>.</p></li>
+<li><p>Consequently, we wish to minimize, <span class="math display">\[C = \sum_{i = 1}^{n} KL\left( P_i \Vert Q_i \right) = \sum_i\sum_j p_{j|i}\log\left(\frac{p_{j|i}}{q_{j|i}}\right)\]</span> with respect to <span class="math inline">\(y_i\)</span>’s, the points in the embedded space.</p></li>
+<li><p>No unique minima of the cost function. Any rotation of embedded space would work, as they preserve distances.</p></li>
+</ul>
+</section>
+<section id="why-kl-divergence-reason-1" class="slide level2 normaltext">
+<h2>Why KL Divergence (Reason 1)</h2>
+<p>KL Divergence is asymmetric.</p>
+<ul>
+<li>If two points <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_j\)</span> are close, <span class="math inline">\(p_{j | i}\)</span> is high, causing more penalty for small choice of <span class="math inline">\(q_{j|i}\)</span> (or distant <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(Y_j\)</span>). Therefore, two close datapoints in feature space would not be represented by distant points in embedded space.</li>
+<li>Converse is not true.</li>
+<li>If two points <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_j\)</span> are distant, <span class="math inline">\(p_{j | i}\)</span> is very low, thereby reducing the contribution of <span class="math inline">\(q_{j|i}\)</span> in the cost function.</li>
+</ul>
+</section>
+<section id="why-kl-divergence-reason-2" class="slide level2 normaltext">
+<h2>Why KL Divergence (Reason 2)</h2>
+<p>Gradient function is fairly simple.</p>
+<ul>
+<li>We minimize the cost function using Newton Raphson, Gradient Descent method.</li>
+<li>Using Kullback Leibler divergence makes the form of the gradient simpler. <span class="math display">\[\frac{\partial C}{\partial y_i} = 2\sum_{j\neq i} (p_{j|i} + p_{i|j}-q_{j|i}-q_{i|j})(y_i - y_j)\]</span></li>
+<li>Fix a point <span class="math inline">\(y_i\)</span> in embedded space. For each datapoint <span class="math inline">\(y_j\)</span>, consider there is a spring between <span class="math inline">\(y_j\)</span> and <span class="math inline">\(y_i\)</span> that exerts force proportional to difference in the corresponding probabilities. All such forces add up to tell where to move <span class="math inline">\(y_i\)</span> in next iteration.</li>
+</ul>
+</section>
+<section id="crowding-problem" class="slide level2 normaltext">
+<h2>Crowding Problem</h2>
+<p><img src="figures/crowding_problem.png" width="400"></p>
+<ul>
+<li><p>Higher dimension can have more points at small distances, while low dimension would not be able to accomodate all such points in their accurate positions.</p></li>
+<li><p>Due to minimization of each <span class="math inline">\(KL(P_i\Vert Q_i)\)</span>, all such points would try to remain as close as possible in embedded space, thereby creating very dense clusters. Vital information about shape of the cluster may be gone.</p></li>
+</ul>
+</section>
+<section id="symmetric-sne" class="slide level2 normaltext">
+<h2>Symmetric SNE</h2>
+<ul>
+<li><p>Could avoid the <em>Crowding Problem</em> by modelling <span class="math inline">\(p_{ij}\)</span>’s jointly, rather than modelling conditional <span class="math inline">\(p_{j|i}\)</span>’s. Since, the cost function would not have many KL divergences each of which would try to get minimized independent of others.</p></li>
+<li><p>Here, we have; <span class="math inline">\(p_{ij} \propto \exp\left( -\frac{\Vert X_i - X_j\Vert^2}{2\sigma_i\sigma_j} \right)\)</span></p></li>
+<li><p>Cost function becomes; <span class="math inline">\(C = \sum_i \sum_j p_{ij}\log\left( \frac{p_{ij}}{q_{ij}} \right)\)</span></p></li>
+<li><p>The gradient gets simplified further; <span class="math inline">\(\frac{\partial C}{\partial y_i} = 4\sum_{j\neq i} (p_{ij}-q_{ij})(y_i - y_j)\)</span></p></li>
+</ul>
+</section>
+<section id="symmetric-sne-outlier-problem" class="slide level2 normaltext">
+<h2>Symmetric SNE (Outlier Problem)</h2>
+<ul>
+<li>The position of an outlier is not well determined in the embedded space.</li>
+<li>Let <span class="math inline">\(X_1\)</span> be an outlying datapoint. Then, each of the distance <span class="math inline">\(\Vert X_1 - X_2\Vert, \Vert X_1 - X_3\Vert, \dots \Vert X_1 - X_n\Vert\)</span> are large.</li>
+<li>Hence, all of <span class="math inline">\(p_{12}, p_{13}, \dots p_{1n}\)</span> are small.<br />
+</li>
+<li>Hence, the effect of the outlying datapoint <span class="math inline">\(X_1\)</span> is very small in the cost function.</li>
+</ul>
+</section>
+<section id="remedies" class="slide level2 normaltext">
+<h2>Remedies</h2>
+<ul>
+<li>Mix with Uniform noise. But it complicates the simple form of gradient.</li>
+</ul>
+<p><span class="math display">\[p&#39;_{ij} = (1-\rho)p_{ij} + \rho \frac{1}{2n(n-1)} \]</span></p>
+<ul>
+<li>Consider symmetrized conditional probabilities.</li>
+</ul>
+<p><span class="math display">\[p_{ij} = \frac{p_{j|i} + p_{i|j}}{2n}\]</span></p>
+<p style="text-align:left;">
+Note that, <span class="math inline">\(\sum_j p_{ij} &gt; \frac{1}{2n}\)</span>.
+</p>
+</section>
+<section id="building-t-sne" class="slide level2 normaltext">
+<h2>Building t-SNE</h2>
+<p><img src="pres_files/figure-revealjs/unnamed-chunk-3-1.png" width="336" /></p>
+<ul>
+<li>The distance between <span class="math inline">\((0, 1)\)</span> and <span class="math inline">\((1, 0)\)</span> is <span class="math inline">\(\sqrt{2}\)</span>. But, if we accurately represent those points preserving local distances in 1D embedded space, the distance must increase to 2.</li>
+</ul>
+</section>
+<section id="building-t-sne-contd." class="slide level2 normaltext">
+<h2>Building t-SNE (Contd.)</h2>
+<ul>
+<li><p>Assume, <span class="math inline">\(\sqrt{2}\)</span> distance in feature space would give <span class="math inline">\(p_{ij} = 0.1\)</span>. Then, the minimization of cost would yield <span class="math inline">\(q_{ij} \approx 0.1\)</span>, which should correspond to higher distance of <span class="math inline">\(2\)</span>.</p></li>
+<li><p>Therefore, we need some heavy tail distribution. Maybe Cauchy (t with <span class="math inline">\(1\)</span> d.f.).</p></li>
+<li><p>Take <span class="math inline">\(q_{ij} \propto \left( 1 + \Vert Y_i - Y_j \Vert^2 \right)^{-1}\)</span>.</p></li>
+<li><p>Gradients becomes; <span class="math display">\[\frac{\partial C}{\partial Y_i} = 4 \sum_{j\neq i} (p_{ij} - q_{ij})\left( 1 + \Vert Y_i - Y_j \Vert^2 \right)^{-1} (Y_i - Y_j)\]</span></p></li>
+</ul>
+</section>
+<section id="visualization-of-full-mnist" class="slide level2 normaltext">
+<h2>Visualization of full MNIST</h2>
+<p><span class="tinytext">Check <a href="figures/mnist_tsne.jpg" target="_blank">here</a> for full image.</span></p>
+<p><img src="figures/mnist_tsne.jpg" width="500"></p>
+</section>
+<section id="visualization-of-normal-mixture" class="slide level2 normaltext">
+<h2>Visualization of Normal Mixture</h2>
+<ul>
+<li>Simulated dataset containing samples from <span class="math inline">\(3\)</span> different <span class="math inline">\(10\)</span>-variate normal distributions.</li>
+<li>Each of them with covariance matrix <span class="math inline">\(\sigma I_{10}\)</span>, but with different sigmas.</li>
+<li>One with mean <span class="math inline">\(\mu = 0\)</span>, another with mean vector with all components as small positive number (between <span class="math inline">\(0\)</span> to <span class="math inline">\(3\)</span>), and the other with a mean vector with all components as small negative numbers (between <span class="math inline">\(-3\)</span> to <span class="math inline">\(0\)</span>).</li>
+<li>The classes were imbalanced. That is, there were about <span class="math inline">\(500\)</span> samples from 1st population of normal, about <span class="math inline">\(200\)</span> from 2nd population and <span class="math inline">\(50\)</span> from 3rd one.</li>
+</ul>
+</section>
+<section id="visualization-of-normal-mixture-1" class="slide level2 normaltext">
+<h2>Visualization of Normal Mixture</h2>
+<p><span class="tinytext">Click <a href="https://subroy13.github.io/D-Basu-pres/Presentation/figures/tsne-normal.gif" target="_blank">here</a> if you cannot watch the animation.</span></p>
+<p><img src="figures/tsne-normal.gif" width="500"></p>
+</section>
+<section id="visualization-of-real-data" class="slide level2 normaltext">
+<h2>Visualization of Real Data</h2>
+<ul>
+<li><a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)%7Btarget=%22_blank%22%7D">Wisconsin Breast Cancer</a> dataset contains <span class="math inline">\(569\)</span> patients data on <span class="math inline">\(32\)</span> variables related to breast cancer, and the true label whether the tumor was benign or malignant.</li>
+<li>Features are computed from a digitized image of a fine needle aspirate (FNA) of a breast mass. They describe characteristics of the cell nuclei present in the image.</li>
+<li>Input to t-SNE was just <span class="math inline">\(32\)</span> features as a <span class="math inline">\(32\)</span> length vectors for each patients. The labels are only used to annotate the plot.</li>
+<li>Red datapoints mean truly malignant in nature.</li>
+</ul>
+</section>
+<section id="visualization-of-real-data-1" class="slide level2 normaltext">
+<h2>Visualization of Real Data</h2>
+<p><span class="tinytext">Click <a href="https://subroy13.github.io/D-Basu-pres/Presentation/figures/tsne-breast-cancer-winsconsin.gif" target="_blank">here</a> if you cannot watch the animation.</span></p>
+<p><img src="figures/tsne-breast-cancer-winsconsin.gif" width="500"></p>
+</section>
+<section id="phases-of-optimization" class="slide level2 smalltext">
+<h2>3 Phases of Optimization</h2>
+<ul>
+<li>Previous animation shows 3 clear phases of optimization.</li>
+</ul>
+<p><a href="javascript:void(0)"><strong>Phase 1 (Early Compression)</strong></a></p>
+<ul>
+<li>At the initial stage, all <span class="math inline">\(Y_i\)</span>’s are clustered close to the origin of embedded space.</li>
+<li>Reason is, for first few iterations, an <span class="math inline">\(L_2\)</span> penalty term (like ridge regression) is added to the cost function. Hence, we have; <span class="math inline">\(C_{new} = KL(P\Vert Q) + \lambda\sum_i \Vert Y_i \Vert^2\)</span></li>
+<li>For the datapoints, for which <span class="math inline">\(p_{ij}\)</span>’s are very small, due to t-distribution, those points in the embedded space would be distant. However, it there are many such pairs, then cost minimization without the <span class="math inline">\(L_2\)</span> penalty term, would repel most of the points distant from the origin at first few iterations. This may affect the local distances and the algorithm would be stuck at a local optima. An <span class="math inline">\(L_2\)</span> restriction would keep them in check for some iterations to explore more global possibilities.</li>
+</ul>
+</section>
+<section id="phases-of-optimization-1" class="slide level2 smalltext">
+<h2>3 Phases of Optimization</h2>
+<p><a href="javascript:void(0)"><strong>Phase 2 (Early Exaggeration)</strong></a></p>
+<ul>
+<li>The clusters seems to distinguish itself from other clusters, but lot of erratic movement within clusters.</li>
+<li>Early exaggeration multiplies all <span class="math inline">\(p_{ij}\)</span>’s by <span class="math inline">\(\alpha &gt; 1\)</span>, which makes <span class="math inline">\(\sum_i \sum_j p_{ij} = \alpha &gt; 1\)</span>. Clearly, no <span class="math inline">\(q_{ij}\)</span>’s would be enough to represent <span class="math inline">\(p_{ij}\)</span>’s as <span class="math inline">\(\sum_i\sum_j q_{ij} = 1\)</span> and they are too much small to model respective <span class="math inline">\(p_{ij}\)</span>’s.</li>
+<li>As a result, the optimization is encouraged to focus on modeling the large <span class="math inline">\(p_{ij}\)</span>’s by fairly large (or even larger) <span class="math inline">\(q_{ij}\)</span>’s, as the penalty is too high.</li>
+<li>The effect is that the natural clusters in the data tend to form widely separated clusters in the embedded space.</li>
+<li>However, since very small (local) distances are not modelled correctly, they tend to move erratic for some iterations.</li>
+</ul>
+</section>
+<section id="phases-of-optimization-2" class="slide level2 normaltext">
+<h2>3 Phases of Optimization</h2>
+<p><a href="javascript:void(0)"><strong>Phase 3 (Complete Visualization)</strong></a></p>
+<ul>
+<li>The parameter <span class="math inline">\(\alpha\)</span> from Early exaggeration is brought down to <span class="math inline">\(1\)</span> little by little.</li>
+<li>As a result, wide seperated clusters now try to focus on intra-cluster differences. The movement of points in embedded space gradually comes to a stable position.</li>
+<li>Finally, we have a complete visualization of the natural clusters in multidimensional data.</li>
+</ul>
+</section>
+<section id="more-examples-1" class="slide level2">
+<h2>More Examples 1</h2>
+<div class="figure" style="text-align: center">
+<img src="figures/figure_01_original.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" /><img src="figures/figure_01_tsne.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" />
+<p class="caption">
+Left: Original Image; Right: t-SNE Output
+</p>
+</div>
+</section>
+<section id="more-examples-2" class="slide level2">
+<h2>More Examples 2</h2>
+<div class="figure" style="text-align: center">
+<img src="figures/figure_02_original.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" /><img src="figures/figure_02_tsne.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" />
+<p class="caption">
+Left: Original Image; Right: t-SNE Output
+</p>
+</div>
+</section>
+<section id="more-examples-3" class="slide level2">
+<h2>More Examples 3</h2>
+<div class="figure" style="text-align: center">
+<img src="figures/figure_03_original.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" /><img src="figures/figure_03_tsne.png" alt="Left: Original Image;   Right: t-SNE Output" width="49%" />
+<p class="caption">
+Left: Original Image; Right: t-SNE Output
+</p>
+</div>
+</section>
+<section id="pros" class="slide level2">
+<h2>Pros</h2>
+<ul>
+<li>Helps us visualizes the structure of the data and determine the course of analysis seemingly.</li>
+<li>Helps us in understanding whether local distances (or the similarity measure based on which <span class="math inline">\(p_{ij}\)</span>’s are constructed) are well enough to seperate the clusters.</li>
+<li>Fairly robust in the sense that outlying datapoint stays as an outlier in the embedded space, since t-distribution will strech the large distances further away.</li>
+<li>Applies to categorical, nominal variables as well, as long as there is a similarity measure which can be transformed into a probability like measure.</li>
+</ul>
+</section>
+<section id="cons" class="slide level2">
+<h2>Cons</h2>
+<ul>
+<li><p>Need to compute <span class="math inline">\(q_{ij}\)</span>’s based on new position of <span class="math inline">\(Y_i\)</span>’s for each iteration. This requires <span class="math inline">\(O(n^2)\)</span> computation for each iteration which is huge for large datasets (used in biology).</p></li>
+<li><p>It would have been extremely good if we could use t-SNE to classification problem, an approach would be to project higher dimensional space into the embedded space where we could simply see &amp; define a function which could give rise to a classification function. But, t-SNE is nonparametric, hence given a new test datapoint, we just do not know its position in the embedded space.</p></li>
+</ul>
+</section>
+<section id="barnes-hut-approximation" class="slide level2 smalltext">
+<h2>Barnes-Hut Approximation</h2>
+<p><img src="figures/barnes-hut.png" width="300"></p>
+<ul>
+<li><span class="math inline">\(\Vert Y_I - Y_A\Vert \approx \Vert Y_I - Y_B\Vert \approx \Vert Y_I - Y_C\Vert\)</span>. Therefore, <span class="math inline">\(q_{IA} \approx q_{IB} \approx q_{IC}\)</span>.</li>
+<li><p>Let, <span class="math inline">\(Y_0\)</span> is the center of the cell where <span class="math inline">\(Y_A, Y_B, Y_C\)</span> belongs. Then, can approximate <span class="math inline">\(q_{IA} \propto \exp\left( -\Vert Y_I - Y_0\Vert^2 \right)\)</span>.</p></li>
+<li><p>Use a quadtree or octtree to perform this in an efficient manner.</p></li>
+</ul>
+</section>
+<section id="barnes-hut-approximation-1" class="slide level2 smalltext">
+<h2>Barnes-Hut Approximation</h2>
+<p style="margin:0; padding:0">
+<img src="figures/barnes-hut-tree.png" width="600" style="margin:0; padding:0">
+</p>
+<ul>
+<li>Break the whole embedded space into grids recursively into <span class="math inline">\(4\)</span> parts (or <span class="math inline">\(8\)</span> parts in 3D) until all the points lie in separate grid cells.</li>
+<li>Store centers of each grid cell in a quadtree (or an octtree in 3D).</li>
+<li>When computing gradient <span class="math inline">\(\frac{\partial C}{\partial Y_i}\)</span> ,Perform a depth first search on the tree. At each level, asks the questions;
+<ul>
+<li>Is the cell small enough (<span class="math inline">\(r_{cell}\)</span> is the length of diagonal of the cell)?</li>
+<li>Is the cell distant enough from <span class="math inline">\(Y_i\)</span>?</li>
+</ul></li>
+<li>If both are yes, then merge those points inside the cell and go to upper level for further reduction.</li>
+<li>If not, then apply Barnes Hut approximation in current level.</li>
+</ul>
+</section>
+<section id="visualization-of-imagenet-database" class="slide level2 smalltext">
+<h2>Visualization of Imagenet Database</h2>
+<ul>
+<li>The ImageNet project is a large visual database designed for use in visual object recognition software research. More than 14 million images have been hand-annotated by the project to indicate what objects are pictured.</li>
+<li>ImageNet contains more than 20,000 categories with a typical category, such as “balloon” or “strawberry”, consisting of several hundred images.</li>
+<li>Clearly, applying t-SNE naively would take days to complete. But, with Barnes-Hut approximation, it takes about an hour to complete.</li>
+<li>The images are plotted instead of the embeddded points. To make the most out of it, only a few hundreds are shown on the plot.</li>
+</ul>
+</section>
+<section id="visulization-of-imagenet-database" class="slide level2">
+<h2>Visulization of Imagenet Database</h2>
+<p><span class="tinytext">Check <a href="figures/tsne-imagenet.jpg" target="_blank">here</a> for full image.</span></p>
+<p><img src="figures/tsne-imagenet.jpg" width="550"></p>
+</section>
+<section id="multiple-maps-t-sne" class="slide level2 smalltext">
+<h2>Multiple Maps t-SNE</h2>
+<ul>
+<li>Let’s say we are plotting datapoints representing english words, with <span class="math inline">\(p_{j|i}\)</span> interpreted as the probability that the word <span class="math inline">\(X_j\)</span> is followed by word <span class="math inline">\(X_i\)</span> in the corpus.</li>
+</ul>
+<p><a href="javascript:void(0)">Example</a></p>
+<blockquote>
+<p><span style="color: red">Hello</span>, I am Subhrajyoty. <span class="math inline">\(\qquad\)</span> <span style="color: red">Hi</span>, I am Subhrajyoty.</p>
+</blockquote>
+<ul>
+<li><span style="color: red; font-style: italic;">Hello</span> and <span style="color: red; font-style: italic;">Hi</span> mean same thing as they share same neighbours.</li>
+<li>Consider the word <em>Bank</em> and <em>River</em>. They should have less distance in embedded space.</li>
+<li>Consider the word <em>Bank</em> and <em>Money</em>. They should have less distance in embedded space.</li>
+<li>The words <em>River</em> and <em>Money</em> should have less distance in embedded space by triangle inequality.</li>
+</ul>
+</section>
+<section id="multiple-maps-t-sne-1" class="slide level2 smalltext">
+<h2>Multiple Maps t-SNE</h2>
+<ul>
+<li>Use more than 1 maps, i.e. use a series of embedding maps to understand complex sturcture of language.</li>
+<li>Consider; <span class="math display">\[q_{ij} \propto \sum_m \pi_i^{(m)} \pi_j^{(m)} \left( 1 + \Vert Y_i^{(m)} - Y_j^{(m)} \Vert^2 \right)^{-1}\]</span></li>
+<li>Model the weights of importance as <span class="math display">\[\pi_{i}^{(m)} = \frac{e^{-w_i^{(m)}}}{\sum_{m&#39;} e^{-w_i^{(m)}}}\]</span> with <span class="math inline">\(w_i^{(1)} = 0\)</span>.</li>
+<li><p>Due to increasing number of parameters, limit the number of maps to <span class="math inline">\(3\)</span>.</p></li>
+<li><p>Measure quality using <em>Neighbourhood Preservation Ratio</em>. The ratio of number of nearest neighbours in feature space which were preserved as nearest neighbours in embedded space also.</p></li>
+</ul>
+</section>
+<section id="example-of-multiple-maps-t-sne-on-real-dataset" class="slide level2">
+<h2>Example of Multiple Maps t-SNE on Real Dataset</h2>
+<div class="figure" style="text-align: center">
+<img src="figures/multiple-map-1.png" alt="Left: Map 1;      Right: Map 2" width="49%" height="400px" /><img src="figures/multiple-map-2.png" alt="Left: Map 1;      Right: Map 2" width="49%" height="400px" />
+<p class="caption">
+Left: Map 1; Right: Map 2
+</p>
+</div>
+</section>
+<section id="gamma-spherical-and-gamma-separable-clusters" class="slide level2 smalltext">
+<h2><span class="math inline">\(\gamma\)</span>-spherical and <span class="math inline">\(\gamma\)</span>-separable clusters</h2>
+<p><a href="javascript:void(0)">Defn.</a> Let <span class="math inline">\(X\)</span> be a dataset with clusters (or partitions) <span class="math inline">\(C_1, C_2, \dots C_k\)</span> with <span class="math inline">\(|C_i| \geq 0.1 \frac{n}{k}\)</span>.</p>
+<ul>
+<li>They are <span class="math inline">\(\gamma\)</span>-spherical if for some constant <span class="math inline">\(b_1, b_2, \dots b_k &gt; 0\)</span>,
+<ul>
+<li>For any <span class="math inline">\(X_i, X_j \in C_l; \Vert X_i - X_j\Vert^2 \geq \frac{b_l}{1 + \gamma}\)</span>.</li>
+<li>For any <span class="math inline">\(X_i\)</span>, there are atleast <span class="math inline">\(50\%\)</span> points of the same cluster which lie within <span class="math inline">\(b_l\)</span> distance from it.</li>
+</ul></li>
+<li>They are <span class="math inline">\(\gamma\)</span>-separable if for some constant <span class="math inline">\(b_1, b_2, \dots b_k &gt; 0\)</span>,
+<ul>
+<li>For any <span class="math inline">\(X_i \in C_l\)</span> and <span class="math inline">\(X_j \in C_{l&#39;}\)</span> in different clusters, <span class="math inline">\(\Vert X_i - X_j \Vert^2 &gt; (1 + \gamma \log n)\max\left(b_l, b_{l&#39;}\right)\)</span></li>
+</ul></li>
+</ul>
+</section>
+<section id="epsilon-visualization" class="slide level2 normaltext">
+<h2><span class="math inline">\((1-\epsilon)\)</span>-Visualization</h2>
+<p><a href="javascript:void(0)">Defn.</a> Let <span class="math inline">\(Y\)</span> be the datapoints in 2D embedded space of the datapoints <span class="math inline">\(X\)</span>. If there is a partition <span class="math inline">\(P_1, P_2, \dots P_k, P_{err}\)</span> such that;</p>
+<ul>
+<li><span class="math inline">\(| P_i \Delta C_i| \leq \epsilon |C_i|\)</span> for all <span class="math inline">\(i = 1, 2, \dots k\)</span></li>
+<li><span class="math inline">\(|P_{err}| \leq n\epsilon\)</span></li>
+</ul>
+<p>If <span class="math inline">\(\epsilon = 0\)</span>, we say the embedding is a full visualization.</p>
+</section>
+<section id="theoretical-result" class="slide level2 smalltext">
+<h2>Theoretical Result</h2>
+<ul>
+<li>No proper theoretical results till <span class="math inline">\(2017\)</span>, since the optimization problem was not convex.</li>
+<li>In <span class="math inline">\(2017\)</span> and <span class="math inline">\(2018\)</span>, some analysis for 2D t-SNE based on Dynamical Systems and Differential Equations was proposed.</li>
+</ul>
+<p><a href="javascript:void(0)">Result</a></p>
+<div class="jumbotron">
+<p>Let, <span class="math inline">\(X\)</span> be a <span class="math inline">\(\gamma\)</span>-spherical and <span class="math inline">\(\gamma\)</span>-separated dataset with <span class="math inline">\(k &lt; n^{1/5}\)</span> and the early exaggeration phase uses an <span class="math inline">\(k^2\sqrt{n}\log n &lt; \alpha &lt; n\)</span>. Then, for any <span class="math inline">\(\epsilon &gt; 0\)</span>, there exists a constant <span class="math inline">\(C(\epsilon, \gamma) &lt; \infty\)</span> such that with probability at least <span class="math inline">\((1-\epsilon)\)</span> over the choice of initial position of datapoints in embedding space, after <span class="math inline">\(C(\epsilon, \gamma)\frac{n \log n}{\alpha}\)</span> iterations, it leads to a full visualization.</p>
+</div>
+</section>
+<section id="future-scopes" class="slide level2 normaltext">
+<h2>Future Scopes</h2>
+<ul>
+<li>No theoretical result for 3D or higher dimension.</li>
+<li>Develop a parametric framework for t-SNE, which can be used to develop a classification technique.</li>
+<li>t-SNE preserves local distances, but changes the global shape of data. Can we retain both using Multiple maps?</li>
+</ul>
+</section>
+<section id="references" class="slide level2 smalltext">
+<h2>References</h2>
+<ul>
+<li><a href="https://lvdmaaten.github.io/tsne/" target="_blank">Laurens van der Maaten’s website</a></li>
+<li>L.J.P. van der Maaten and G.E. Hinton. <a href="https://lvdmaaten.github.io/publications/papers/JMLR_2008.pdf" target="_blank">Visualizing High-Dimensional Data Using t-SNE</a>. Journal of Machine Learning Research 9(Nov):2579-2605, 2008</li>
+<li>L.J.P. van der Maaten. <a href="https://lvdmaaten.github.io/publications/papers/AISTATS_2009.pdf" target="_blank">Learning a Parametric Embedding by Preserving Local Structure</a>. In Proceedings of the Twelfth International Conference on Artificial Intelligence &amp; Statistics (AI-STATS), JMLR W&amp;CP 5:384-391, 2009</li>
+<li>L.J.P. van der Maaten and G.E. Hinton. <a href="https://lvdmaaten.github.io/publications/papers/MachLearn_2012.pdf" target="_blank">Visualizing Non-Metric Similarities in Multiple Maps</a>. Machine Learning 87(1):33-55, 2012.</li>
+<li>L.J.P. van der Maaten. <a href="https://lvdmaaten.github.io/publications/papers/JMLR_2014.pdf" target="_blank">Accelerating t-SNE using Tree-Based Algorithms</a>. Journal of Machine Learning Research 15(Oct):3221-3245, 2014.</li>
+<li>U. Shaham, S. Steinerberger. <a href="https://arxiv.org/abs/1702.02670" target="_blank">Stochastic Neighbor Embedding separates well-separated clusters</a>, 2017.</li>
+<li>S. Arora, W. Hu, P. K. Kothari. <a href="https://arxiv.org/abs/1803.01768" target="_blank">An Analysis of the t-SNE Algorithm for Data Visualization</a>, 2018.</li>
+<li>George C. Linderman and Stefan Steinerberger. <a href="https://epubs.siam.org/doi/ref/10.1137/18M1216134" target="_blank">Clustering with t-SNE, Provably</a>. SIAM Journal on Mathematics of Data Science 1(2), 313–332, 2018.</li>
+</ul>
+</section>
+<section><section id="thank-you" class="title-slide slide level1"><h1>THANK YOU</h1></section></section>
+    </div>
+  </div>
+
+  <script src="pres_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="pres_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <!-- <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "pres_files/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>-->
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
