@@ -2,10 +2,23 @@
 
 This repository contains the slides, source materials for the talks I have presented over the years, based on multiple collaborative projects.
 
+## 2025
 
-## 2023
+- `icors-2025`: This is a contributed talk presented in the International Conference on Robust Statistics (ICORS) 2025 at Stresa, Piedmont, Italy.
+
+
+## 2024
+
+- `ims-aprm-2024`: This is a contributed talk presented in the IMS Asia Pacific Rim Meeting Conference, 2024 at University of Melbourne, Australia.
+
+- `pre-thesis-talk`: This talk served as a open public lecture on the research of my doctoral thesis, held at Interdisciplinary Statistical Research Unit, Indian Statistical Institute, Kolkata.
+
+- `robust-pca`: This is a contributed talk in the IISA 2024 Conference at Cochin, Kerala, India.
+
+## 2022
 
 - `multivariate-location-scatter`: This is an invited session for introduction to the robust multivariate estimation techniques (estimation of location and scatter) to a class on Robust Statistics in ISI, Kolkata.
+    * An updated version of this talk is also given to the cohort of Feb, 2024. 
 
 
 ## 2021
