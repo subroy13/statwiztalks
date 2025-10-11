@@ -4,3 +4,11 @@ tmp
 # Latex temporary files
 *.aux
 *.bbl
+*.fls
+*.fdb_*
+*.log
+*.out
+*.synctex.*
+*.toc
+*.nav
+*.snm

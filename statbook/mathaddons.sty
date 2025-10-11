@@ -1,0 +1,75 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mathaddons}[2023/11/17 Mathematical Utility Add-ons Latex Package]
+
+\RequirePackage{xcolor}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+
+% Custom Mathematical Commands
+
+% Scripted symbols
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% Calligraphic Symbols
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Kcal}{\mathcal{K}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Ocal}{\mathcal{O}}
+
+% Vector notations
+\newcommand{\bb}[1]{\boldsymbol{#1}}
+\newcommand{\bbhat}[1]{\widehat{\boldsymbol{#1}}}
+\newcommand{\bbbar}[1]{\widebar{\boldsymbol{#1}}}
+\newcommand{\bbtilde}[1]{\widetilde{\boldsymbol{#1}}}
+\newcommand{\ind}[1]{\boldsymbol{1}_{#1} }
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\dash}{^{\prime}}
+\newcommand{\ddash}{^{\prime\prime}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\newcommand{\diff}[1]{\partial_{#1}}
+\newcommand{\difft}[1]{\partial^2_{#1}}
+
+\newcommand{\diag}[1]{\text{\normalfont Diag}\left( #1 \right)}
+\newcommand{\trace}[1]{\text{\normalfont Trace}\left( #1 \right)}
+\newcommand{\rank}[1]{\text{\normalfont Rank}\left( #1 \right)}
+\newcommand{\tr}{^{\intercal}}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+
+
+% Probability Notations
+\newcommand{\normdist}{\mathcal{N}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\given}{\hspace{1pt}\vert\hspace{1pt}}
+
+% Math Operator Notations
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
+% Environment Customization
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{example}{Example}
