@@ -55,20 +55,17 @@
 \thanksframe{Motivation}
 
 \begin{frame}{Cross-Country Sovereign Bond Yields}
-    
+    \small
     \begin{itemize}
         \item It is well known that the yields of sovereign bonds across countries are highly correlated.
-        \item There are typically a few macroeconomic (global) factors that drive the yields of sovereign bonds across countries.
-        \item Let's look at some recent data (on daily yields of $10$ year bonds) to see if this is indeed the case!
+        \item There are typically a few macroeconomic (global) factors that drive the yields of sovereign bonds across countries. (e.g., Inflation, Central Bank Policy, Global Oil Prices, etc.)
     \end{itemize}
 
-\end{frame}
-
-
-\begin{frame}{Cross-Country Soverign Bond Yields}
-    
-\includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/motivating_bond_yields.pdf}
-
+    \pause
+    \vspace*{0.5em}
+    \begin{center}
+        \includegraphics[width = 0.78\textwidth]{../../figures/rank_rsvddpd/motivating_bond_yields.pdf}
+    \end{center}
 \end{frame}
 
 
@@ -112,7 +109,13 @@
 
 
 \begin{frame}{Recommender Systems: MovieLens Data}
-    \includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/motivating_reco_sparsity.pdf}
+    {
+        \vspace*{1em}
+        \centering
+        \includegraphics[width = 0.9\textwidth]{../../figures/rank_rsvddpd/motivating_reco_sparsity.pdf}
+    }
+
+    The objective is then to \alert{robustly} estimated the latent factors (including the number of factors) and complete this matrix.
 \end{frame}
 
 \begin{frame}{Ubiquity of Matrix Decomposition}
@@ -196,125 +199,185 @@
     \end{itemize}    
 \end{frame}
 
+% \begin{frame}{Approach 2: Computational Approach}
+%     \begin{itemize}
+%         \only<1>{\item \textbf{Cross-validation / resampling}: hold out a subset of entries (or rows/columns), refit a rank-$r$ approximation on the rest, and measure prediction error on the held-out part -- repeat over folds and choose $r$ minimizing the prediction error.}
+%         \only<2>{
+%             \item Wold-style (or speckled) \cite{wold1978crossvalidation}. The removal of entries happen at each cell / entry level.
+%         }
+%         \only<3>{
+%             \item Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, and bi-cross-validation \cite{owen2009bi}. The removal of entries happen at each row / column / block levels.
+%         }
+%     \end{itemize}
+%     \only<2>{
+%         \begin{center}
+%             \begin{tikzpicture}[scale=0.55, transform shape]
+%             \tikzstyle{every node}=[font=\sffamily]
+            
+%             % Legend
+%             \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
+%             \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out (Measure Error)};
+            
+%             % Matrix 1 (Fold 1)
+%             \begin{scope}[xshift=0cm]
+%                 \fill[blue!15] (0,0) rectangle (4,4);
+%                 % Held out cells
+%                 \fill[red!50] (1,2) rectangle (2,3);
+%                 \fill[red!50] (3,0) rectangle (4,1);
+%                 \fill[red!50] (0,3) rectangle (1,4);
+%                 \fill[red!50] (2,1) rectangle (3,2);
+%                 \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%                 \draw[thick] (0,0) rectangle (4,4);
+%                 \node at (2, -0.8) {\large \textbf{Fold 1}};
+%             \end{scope}
+
+%             \node at (5, 2) {\Huge $\rightarrow$};
+
+%             % Matrix 2 (Fold 2)
+%             \begin{scope}[xshift=6cm]
+%                 \fill[blue!15] (0,0) rectangle (4,4);
+%                 % Held out cells
+%                 \fill[red!50] (0,1) rectangle (1,2);
+%                 \fill[red!50] (2,3) rectangle (3,4);
+%                 \fill[red!50] (1,0) rectangle (2,1);
+%                 \fill[red!50] (3,2) rectangle (4,3);
+%                 \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%                 \draw[thick] (0,0) rectangle (4,4);
+%                 \node at (2, -0.8) {\large \textbf{Fold 2}};
+%             \end{scope}
+
+%             \node at (11, 2) {\Huge $\rightarrow \dots$};
+
+%             % Matrix 3 (Fold K)
+%             \begin{scope}[xshift=12cm]
+%                 \fill[blue!15] (0,0) rectangle (4,4);
+%                 % Held out cells
+%                 \fill[red!50] (2,0) rectangle (3,1);
+%                 \fill[red!50] (0,2) rectangle (1,3);
+%                 \fill[red!50] (1,3) rectangle (2,4);
+%                 \fill[red!50] (3,1) rectangle (4,2);
+%                 \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%                 \draw[thick] (0,0) rectangle (4,4);
+%                 \node at (2, -0.8) {\large \textbf{Fold $K$}};
+%             \end{scope}
+%             \end{tikzpicture}
+%         \end{center}
+%     }
+
+%     \only<3>{
+%         \begin{center}
+%         \begin{tikzpicture}[scale=0.55, transform shape]
+%         \tikzstyle{every node}=[font=\sffamily]
+        
+%         % Legend
+%         \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
+%         \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
+        
+%         % Matrix 1 (Fold 1)
+%         \begin{scope}[xshift=0cm]
+%             \fill[blue!15] (0,0) rectangle (4,4);
+            
+%             % Hold out Row 2 and Column 3
+%             \fill[red!50] (0,2) rectangle (4,3); % Row 2
+%             \fill[red!50] (2,0) rectangle (3,4); % Col 3
+            
+%             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%             \draw[thick] (0,0) rectangle (4,4);
+%             \node at (2, -0.8) {\large \textbf{Fold 1}};
+%         \end{scope}
+
+%         \node at (5, 2) {\Huge $\rightarrow$};
+
+%         % Matrix 2 (Fold 2)
+%         \begin{scope}[xshift=6cm]
+%             \fill[blue!15] (0,0) rectangle (4,4);
+            
+%             % Hold out Row 4 and Column 1
+%             \fill[red!50] (0,0) rectangle (4,1); % Row 4
+%             \fill[red!50] (0,0) rectangle (1,4); % Col 1
+            
+%             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%             \draw[thick] (0,0) rectangle (4,4);
+%             \node at (2, -0.8) {\large \textbf{Fold 2}};
+%         \end{scope}
+
+%         \node at (11, 2) {\Huge $\rightarrow \dots$};
+
+%         % Matrix 3 (Fold K)
+%         \begin{scope}[xshift=12cm]
+%             \fill[blue!15] (0,0) rectangle (4,4);
+            
+%             % Hold out Row 1 and Column 4
+%             \fill[red!50] (0,3) rectangle (4,4); % Row 1
+%             \fill[red!50] (3,0) rectangle (4,4); % Col 4
+            
+%             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%             \draw[thick] (0,0) rectangle (4,4);
+%             \node at (2, -0.8) {\large \textbf{Fold $K$}};
+%         \end{scope}
+%         \end{tikzpicture}
+%         \end{center}
+%     }
+% \end{frame}
+
 \begin{frame}{Approach 2: Computational Approach}
     \begin{itemize}
-        \only<1>{\item \textbf{Cross-validation / resampling}: hold out a subset of entries (or rows/columns), refit a rank-$r$ approximation on the rest, and measure prediction error on the held-out part -- repeat over folds and choose $r$ minimizing the prediction error.}
-        \only<2>{
-            \item Wold-style (or speckled) \cite{wold1978crossvalidation}. The removal of entries happen at each cell / entry level.
-        }
-        \only<3>{
-            \item Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, and bi-cross-validation \cite{owen2009bi}. The removal of entries happen at each row / column / block levels.
-        }
+        \item \textbf{Cross-validation / resampling}: hold out a subset of entries (or rows/columns), refit a rank-$r$ approximation on the rest, and measure prediction error on the held-out part -- repeat over folds and choose $r$ minimizing the prediction error.
+        \item Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, and bi-cross-validation \cite{owen2009bi}. The removal of entries happen at each row / column / block levels.
     \end{itemize}
-    \only<2>{
-        \begin{center}
-            \begin{tikzpicture}[scale=0.55, transform shape]
-            \tikzstyle{every node}=[font=\sffamily]
-            
-            % Legend
-            \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
-            \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out (Measure Error)};
-            
-            % Matrix 1 (Fold 1)
-            \begin{scope}[xshift=0cm]
-                \fill[blue!15] (0,0) rectangle (4,4);
-                % Held out cells
-                \fill[red!50] (1,2) rectangle (2,3);
-                \fill[red!50] (3,0) rectangle (4,1);
-                \fill[red!50] (0,3) rectangle (1,4);
-                \fill[red!50] (2,1) rectangle (3,2);
-                \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-                \draw[thick] (0,0) rectangle (4,4);
-                \node at (2, -0.8) {\large \textbf{Fold 1}};
-            \end{scope}
 
-            \node at (5, 2) {\Huge $\rightarrow$};
-
-            % Matrix 2 (Fold 2)
-            \begin{scope}[xshift=6cm]
-                \fill[blue!15] (0,0) rectangle (4,4);
-                % Held out cells
-                \fill[red!50] (0,1) rectangle (1,2);
-                \fill[red!50] (2,3) rectangle (3,4);
-                \fill[red!50] (1,0) rectangle (2,1);
-                \fill[red!50] (3,2) rectangle (4,3);
-                \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-                \draw[thick] (0,0) rectangle (4,4);
-                \node at (2, -0.8) {\large \textbf{Fold 2}};
-            \end{scope}
-
-            \node at (11, 2) {\Huge $\rightarrow \dots$};
-
-            % Matrix 3 (Fold K)
-            \begin{scope}[xshift=12cm]
-                \fill[blue!15] (0,0) rectangle (4,4);
-                % Held out cells
-                \fill[red!50] (2,0) rectangle (3,1);
-                \fill[red!50] (0,2) rectangle (1,3);
-                \fill[red!50] (1,3) rectangle (2,4);
-                \fill[red!50] (3,1) rectangle (4,2);
-                \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-                \draw[thick] (0,0) rectangle (4,4);
-                \node at (2, -0.8) {\large \textbf{Fold $K$}};
-            \end{scope}
-            \end{tikzpicture}
-        \end{center}
-    }
-
-    \only<3>{
-        \begin{center}
-        \begin{tikzpicture}[scale=0.55, transform shape]
-        \tikzstyle{every node}=[font=\sffamily]
+    \begin{center}
+    \begin{tikzpicture}[scale=0.55, transform shape]
+    \tikzstyle{every node}=[font=\sffamily]
+    
+    % Legend
+    \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
+    \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
+    
+    % Matrix 1 (Fold 1)
+    \begin{scope}[xshift=0cm]
+        \fill[blue!15] (0,0) rectangle (4,4);
         
-        % Legend
-        \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
-        \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
+        % Hold out Row 2 and Column 3
+        \fill[red!50] (0,2) rectangle (4,3); % Row 2
+        \fill[red!50] (2,0) rectangle (3,4); % Col 3
         
-        % Matrix 1 (Fold 1)
-        \begin{scope}[xshift=0cm]
-            \fill[blue!15] (0,0) rectangle (4,4);
-            
-            % Hold out Row 2 and Column 3
-            \fill[red!50] (0,2) rectangle (4,3); % Row 2
-            \fill[red!50] (2,0) rectangle (3,4); % Col 3
-            
-            \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-            \draw[thick] (0,0) rectangle (4,4);
-            \node at (2, -0.8) {\large \textbf{Fold 1}};
-        \end{scope}
+        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+        \draw[thick] (0,0) rectangle (4,4);
+        \node at (2, -0.8) {\large \textbf{Fold 1}};
+    \end{scope}
 
-        \node at (5, 2) {\Huge $\rightarrow$};
+    \node at (5, 2) {\Huge $\rightarrow$};
 
-        % Matrix 2 (Fold 2)
-        \begin{scope}[xshift=6cm]
-            \fill[blue!15] (0,0) rectangle (4,4);
-            
-            % Hold out Row 4 and Column 1
-            \fill[red!50] (0,0) rectangle (4,1); % Row 4
-            \fill[red!50] (0,0) rectangle (1,4); % Col 1
-            
-            \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-            \draw[thick] (0,0) rectangle (4,4);
-            \node at (2, -0.8) {\large \textbf{Fold 2}};
-        \end{scope}
+    % Matrix 2 (Fold 2)
+    \begin{scope}[xshift=6cm]
+        \fill[blue!15] (0,0) rectangle (4,4);
+        
+        % Hold out Row 4 and Column 1
+        \fill[red!50] (0,0) rectangle (4,1); % Row 4
+        \fill[red!50] (0,0) rectangle (1,4); % Col 1
+        
+        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+        \draw[thick] (0,0) rectangle (4,4);
+        \node at (2, -0.8) {\large \textbf{Fold 2}};
+    \end{scope}
 
-        \node at (11, 2) {\Huge $\rightarrow \dots$};
+    \node at (11, 2) {\Huge $\rightarrow \dots$};
 
-        % Matrix 3 (Fold K)
-        \begin{scope}[xshift=12cm]
-            \fill[blue!15] (0,0) rectangle (4,4);
-            
-            % Hold out Row 1 and Column 4
-            \fill[red!50] (0,3) rectangle (4,4); % Row 1
-            \fill[red!50] (3,0) rectangle (4,4); % Col 4
-            
-            \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-            \draw[thick] (0,0) rectangle (4,4);
-            \node at (2, -0.8) {\large \textbf{Fold $K$}};
-        \end{scope}
-        \end{tikzpicture}
-        \end{center}
-    }
+    % Matrix 3 (Fold K)
+    \begin{scope}[xshift=12cm]
+        \fill[blue!15] (0,0) rectangle (4,4);
+        
+        % Hold out Row 1 and Column 4
+        \fill[red!50] (0,3) rectangle (4,4); % Row 1
+        \fill[red!50] (3,0) rectangle (4,4); % Col 4
+        
+        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+        \draw[thick] (0,0) rectangle (4,4);
+        \node at (2, -0.8) {\large \textbf{Fold $K$}};
+    \end{scope}
+    \end{tikzpicture}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Cross-validation Challenges}
@@ -327,21 +390,21 @@
             \item At $\approx 1$ second per robust SVD, rank estimation alone takes $\approx 33$ minutes.
         \end{itemize}
         \pause
-        \item One idea is to perform one full-rank (i.e., upto $\min(n,p)$) $\widehat{\bb{X}}$ from a single robust SVD of $\bb{X}$, which replaces outliers with reasonable predictions. Then apply cross-validation with classical SVD on $\widehat{\bb{X}}$, as it is free of outliers.
+        \item One idea is to perform one full-rank (i.e., upto $\min(n,p)$) $\widehat{\bb{X}}$ from a single robust SVD of $\bb{X}$, which replaces outliers with reasonable predictions. Then apply cross-validation with classical SVD on $\widehat{\bb{X}}$, as it is free of outliers -- \alert{but still slower than IC.}
     \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{Other Approaches}
-    \begin{itemize}
-        \item \textbf{The ``Elbow'' method} \cite{thorndike1953elbow}: eyeball the scree plot of singular values for a visible drop. Simple, but subjective, and ill-defined under contamination.
-        \item \textbf{Bayesian model averaging} over the rank and the SVD components \cite{hoff2007model}.
-        \item \textbf{Spectral regularization} / nuclear-norm penalization with soft-imputation \cite{mazumder2010spectral}.
-        \pause
-        \item[\textcolor{red}{$\times$}] None of these were designed with robustness to outliers in mind.
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Other Approaches}
+%     \begin{itemize}
+%         \item \textbf{The ``Elbow'' method} \cite{thorndike1953elbow}: eyeball the scree plot of singular values for a visible drop. Simple, but subjective, and ill-defined under contamination.
+%         \item \textbf{Bayesian model averaging} over the rank and the SVD components \cite{hoff2007model}.
+%         \item \textbf{Spectral regularization} / nuclear-norm penalization with soft-imputation \cite{mazumder2010spectral}.
+%         \pause
+%         \item[\textcolor{red}{$\times$}] None of these were designed with robustness to outliers in mind.
+%     \end{itemize}
+% \end{frame}
 
 \thanksframe{Divergence Information Criterion for Matrix Rank}
 
@@ -396,38 +459,32 @@
     Assumption 3 is \alert{necessary}, \cite{shabalin2013reconstruction} showed with any larger error variance, the singular values (or their functions) cannot be consistently estimated.
 \end{frame}
 
-\begin{frame}{Underestimation Probability}
-    \small
+\begin{frame}{Underestimation \& Overestimation Probability}
+    \footnotesize
     \begin{theorem}[Simplified]
         Consider a criterion of the form
         \begin{equation*}
             C_\alpha(r) = H_\alpha(\hat{\theta}) + r \gamma_{n,p} \widehat{\sigma}^{-\alpha},
         \end{equation*}
-        \noindent where $\gamma_{n,p} > 0$ is a sequence of positive constants. Suppose $r < r^\ast$, the true rank, and $\sigma^\ast_{r,\alpha} \geq \sigma(1 + O(1)), \gamma_{n,p} = o(1)$. Then,
+        \noindent where $\gamma_{n,p} > 0$ is a sequence of positive constants.
+
+        \vspace*{0.5em}
+        \textbf{Underestimation:} Suppose $r < r^\ast$, the true rank, and $\sigma^\ast_{r,\alpha} \geq \sigma(1 + O(1)), \gamma_{n,p} = o(1)$. Then,
         \begin{equation*}
             \prob(C_\alpha(r) \leq C_\alpha(r^\ast))
-            \leq C_1 \exp\left( -npC_2 + C_3 (n+p+1)r^\ast\log(np) \right),
+            \leq C_1 \exp\left( -npC_2 + C_3 (n+p+1)r^\ast\log(np) \right).
         \end{equation*}
-        \noindent where $C_1, C_2$ and $C_3$ are some generic constants independent of $n$ and $p$.
-    \end{theorem}
-\end{frame}
 
-\begin{frame}{Overestimation Probability}
-    \small
-    \begin{theorem}[Simplified]
-        Consider a criterion of the form
-        \begin{equation*}
-            C_\alpha(r) = H_\alpha(\hat{\theta}) + r \gamma_{n,p} \widehat{\sigma}^{-\alpha},
-        \end{equation*}
-        \noindent where $\gamma_{n,p} > 0$ is a sequence of positive constants. Pick any $r \in (r^\ast, r_{\max}]$, where $r^\ast$ is the true rank. Then, 
+        \pause
+        \vspace*{0.5em}
+        \textbf{Overestimation:} Pick any $r \in (r^\ast, r_{\max}]$. Then,
         \begin{equation*}
             \prob(C_\alpha(r) \leq C_\alpha(r^\ast)) \leq \max\{ B(r_{\max}), B(r^\ast) \},
         \end{equation*}
-        \noindent where 
-        \begin{equation*}
-            B(r) = C_5 \exp\left( -npC_6 \gamma_{n,p}^2 + C_7 ((n+p+1)r+1)\log(np) \right)
-        \end{equation*}
-        \noindent for some appropriate positive constants $C_5, C_6, C_7$ free of $n, p$ and $r$, depending on the true rank $r^\ast$. 
+        \noindent where $B(r) = C_5 \exp\left( -npC_6 \gamma_{n,p}^2 + C_7 ((n+p+1)r+1)\log(np) \right)$.
+
+        \vspace*{0.5em}
+        \noindent $C_1, \dots, C_7$ are generic positive constants, free of $n, p$ and $r$.
     \end{theorem}
 \end{frame}
 
@@ -512,30 +569,25 @@
     \includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/exact_rank_recovery_eigsame.pdf}
 \end{frame}
 
-\begin{frame}{Simulation Results}
-    \includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/exact_rank_recovery_eigdec.pdf}
-\end{frame}
+\begin{frame}{Computational Complexity}
+    \includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/computation_time.pdf}
 
-\begin{frame}{Finite-Sample Tuning}
-    \small
-    \begin{itemize}
-        \item \textbf{Generalized Criterion:} Asymptotic consistency holds for a family of criteria scaled by a constant $c > 0$:
-        \begin{equation*}
-            \tilde{C}_{\alpha}(r) = H_{r,\alpha}(\bbhat{\theta}_{r,\alpha}) + c \cdot r \hat{\sigma}_{r,\alpha}^{-\alpha} \frac{\sqrt{(n+p)\log(np)}}{\sqrt{np}}
-        \end{equation*}
-        \item \textbf{The Challenge:} For finite $n$ and $p$, the penalty requires careful tuning. 
-        \begin{itemize}
-            \item $c$ too small $\implies$ Penalty too weak (Overestimation)
-            \item $c$ too large $\implies$ Penalty too aggressive (Underestimation)
-        \end{itemize}
-    \end{itemize}
+    \textbf{Key takeaway:} DICMR is \alert{much faster} and \alert{achieves near perfect} rank selection for large dimensional matrices.
 \end{frame}
 
 \begin{frame}{Finite-Sample Tuning: The Plateau Heuristic}
+    \footnotesize
+    Asymptotic consistency holds for a family of criteria scaled by a constant $c > 0$:
+    \begin{equation*}
+        \tilde{C}_{\alpha}(r) = H_{r,\alpha}(\bbhat{\theta}_{r,\alpha}) + c \cdot r \hat{\sigma}_{r,\alpha}^{-\alpha} \frac{\sqrt{(n+p)\log(np)}}{\sqrt{np}},
+    \end{equation*}
+    \noindent but for finite $n, p$ it needs careful tuning: $c$ too small $\implies$ Overestimation, $c$ too large $\implies$ Underestimation.
+
+    \vspace*{0.3em}
     \textbf{The Plateau Heuristic:} Evaluate optimal rank $r(c)$ over a grid of $c$. The true rank is highly stable against perturbations, corresponding to the \textbf{widest flat region}~\cite{hallin2007determining}.
 
     \begin{center}
-    \begin{tikzpicture}[scale=0.85, transform shape]
+    \begin{tikzpicture}[scale=0.72, transform shape]
         % Axes
         \draw[->, thick] (0,0) -- (9,0) node[right, font=\bfseries] {$c$};
         \draw[->, thick] (0,0) -- (0,3.5) node[above, font=\bfseries, yshift=1cm] {Selected Rank $r(c)$};
@@ -572,73 +624,69 @@
 
 
 \begin{frame}{Bond Yield Data: Classical Criteria Find Nothing}
-    \small
-    \begin{itemize}
-        \item Panel of 10Y sovereign yields, 12 countries.
-        \item Split into a calm window (2005--2009) and a window spanning the 2010--2012 Greek crisis (2005--2015).
-    \end{itemize}
-
-    \includegraphics[width = 0.9\textwidth]{../../figures/rank_rsvddpd/results_bond_yield_rank.pdf}
-\end{frame}
-
-\begin{frame}{Bond Yield Data: What This Means}
-    \begin{itemize}
-        \item Every classical criterion picks $\widehat{r} = p = 12$ in \alert{both} windows: with only $12$ countries but thousands of trading days ($n \gg p$), their penalty is too weak to ever compress -- they treat every country as its own factor.
-        \item DICMR / DICMR$_2$ instead recover a compact structure in both regimes: rank $3$ in the calm window, rank $2$ once the Greek crisis is included -- consistent with the textbook level/slope/curvature factor structure of yield curves. (\emph{e.g., Inflation, Central Bank Policy, Economic Activity, etc.})
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Gene Expression: Why It Matters}
-    \small
-    \begin{itemize}
-        \item RNA-sequencing data: rows are patient samples, columns are genes -- a handful of shared biological factors should drive a low-rank signal.
-        \item Sequencing is costly, and combining multiple studies creates \alert{block-missing} patterns (some patients profiled on all genes, some genes profiled on all patients) -- a genuine matrix completion problem, not just random missingness.
-        \item TCGA PAN-Cancer RNA-seq dataset \cite{gene_expression_data}: $801$ patient samples $\times$ $20{,}531$ genes, spanning $5$ cancer types, log2-normalized.
-    \end{itemize}
-
+    \footnotesize
     \begin{center}
-        \includegraphics[width = 0.65\textwidth]{../../figures/rank_rsvddpd/gene_matrix_masked_data.pdf}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Gene Expression: Completions Compared}
-    \small
-    \begin{itemize}
-        \item Train on a random $100 \times 2000$ block $\bb{Z}_{11}$; predict the held-out block $\bb{X}_{22}$ (below the dashed line) via $\bbhat{X}_{22} = \bb{X}_{21} [\bbhat{L}_{r,\alpha}]_{11}^{+} \bb{X}_{12}$.
-        \item Several specialized methods collapse the held-out block to a near-constant value or show streaky artifacts; classical SVD and rSVDdpd stay coherent with the observed pattern.
-    \end{itemize}
-
-    \begin{center}
-    \includegraphics[width = 0.77\textwidth]{../../figures/rank_rsvddpd/gene_matrix_methods_completion.pdf}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Gene Expression: Accuracy Comparison}
-    \small
-    \begin{center}
-    \begin{tabular}{lr}
-        \toprule
-        \textbf{Method} & \textbf{Relative RMSE} \\
-        \midrule
-        llsImpute \cite{llsImpute_method} & $1.2418$ \\
-        scImpute \cite{scImpute_method} & $0.7497$ \\
-        ALRA \cite{linderman2022ALRA} & $0.7468$ \\
-        MAGIC \cite{MAGIC_method} & $0.0881$ \\
-        knnImpute \cite{knnImpute_method} & $0.0365$ \\
-        SAVER \cite{SAVER_method} & $0.0256$ \\
-        SVD & $0.0215$ \\
-        rSVDdpd (DICMR$_{\alpha,1}$); $\hat{r} = 2$ (ours) & $0.0205$ \\
-        rSVDdpd (DICMR$_{\alpha,2}$); $\hat{r} = 7$ (ours) & $\mathbf{0.0186}$ \\
-        \bottomrule
-    \end{tabular}
+        \includegraphics[width = 0.72\textwidth]{../../figures/rank_rsvddpd/results_bond_yield_rank.pdf}
     \end{center}
 
-    \pause
+    \vspace*{0.3em}
     \begin{itemize}
-        \item Relative RMSE $= \Vert \bb{X}_{22} - \bbhat{X}_{22}\Vert_F^2 / \Vert \bb{X}_{22}\Vert_F^2$, on the original (un-normalized) scale.
-        \item[\alert{$\checkmark$}] rSVDdpd + DICMR$_{\alpha,2}$ gives the lowest error; closest contenders are SAVER, classical SVD, and knnImpute.
+        \item Every classical criterion picks $\widehat{r} = p = 12$ in \alert{both} windows (calm 2005--2009, and 2005--2015 spanning the Greek crisis): with $n \gg p$, their penalty is too weak to ever compress.
+        \item DICMR / DICMR$_2$ instead recover a compact structure: rank $3$ in the calm window, rank $2$ once the Greek crisis is included -- consistent with the textbook level/slope/curvature factor structure of yield curves.
     \end{itemize}
 \end{frame}
+
+% \begin{frame}{Gene Expression: Why It Matters}
+%     \small
+%     \begin{itemize}
+%         \item RNA-sequencing data: rows are patient samples, columns are genes -- a handful of shared biological factors should drive a low-rank signal.
+%         \item Sequencing is costly, and combining multiple studies creates \alert{block-missing} patterns (some patients profiled on all genes, some genes profiled on all patients) -- a genuine matrix completion problem, not just random missingness.
+%         \item TCGA PAN-Cancer RNA-seq dataset \cite{gene_expression_data}: $801$ patient samples $\times$ $20{,}531$ genes, spanning $5$ cancer types, log2-normalized.
+%     \end{itemize}
+
+%     \begin{center}
+%         \includegraphics[width = 0.65\textwidth]{../../figures/rank_rsvddpd/gene_matrix_masked_data.pdf}
+%     \end{center}
+% \end{frame}
+
+% \begin{frame}{Gene Expression: Completions Compared}
+%     \small
+%     \begin{itemize}
+%         \item Train on a random $100 \times 2000$ block $\bb{Z}_{11}$; predict the held-out block $\bb{X}_{22}$ (below the dashed line) via $\bbhat{X}_{22} = \bb{X}_{21} [\bbhat{L}_{r,\alpha}]_{11}^{+} \bb{X}_{12}$.
+%         \item Several specialized methods collapse the held-out block to a near-constant value or show streaky artifacts; classical SVD and rSVDdpd stay coherent with the observed pattern.
+%     \end{itemize}
+
+%     \begin{center}
+%     \includegraphics[width = 0.77\textwidth]{../../figures/rank_rsvddpd/gene_matrix_methods_completion.pdf}
+%     \end{center}
+% \end{frame}
+
+% \begin{frame}{Gene Expression: Accuracy Comparison}
+%     \small
+%     \begin{center}
+%     \begin{tabular}{lr}
+%         \toprule
+%         \textbf{Method} & \textbf{Relative RMSE} \\
+%         \midrule
+%         llsImpute \cite{llsImpute_method} & $1.2418$ \\
+%         scImpute \cite{scImpute_method} & $0.7497$ \\
+%         ALRA \cite{linderman2022ALRA} & $0.7468$ \\
+%         MAGIC \cite{MAGIC_method} & $0.0881$ \\
+%         knnImpute \cite{knnImpute_method} & $0.0365$ \\
+%         SAVER \cite{SAVER_method} & $0.0256$ \\
+%         SVD & $0.0215$ \\
+%         rSVDdpd (DICMR$_{\alpha,1}$); $\hat{r} = 2$ (ours) & $0.0205$ \\
+%         rSVDdpd (DICMR$_{\alpha,2}$); $\hat{r} = 7$ (ours) & $\mathbf{0.0186}$ \\
+%         \bottomrule
+%     \end{tabular}
+%     \end{center}
+
+%     \pause
+%     \begin{itemize}
+%         \item Relative RMSE $= \Vert \bb{X}_{22} - \bbhat{X}_{22}\Vert_F^2 / \Vert \bb{X}_{22}\Vert_F^2$, on the original (un-normalized) scale.
+%         \item[\alert{$\checkmark$}] rSVDdpd + DICMR$_{\alpha,2}$ gives the lowest error; closest contenders are SAVER, classical SVD, and knnImpute.
+%     \end{itemize}
+% \end{frame}
 
 
 
@@ -656,23 +704,29 @@
 \end{frame}
 
 \begin{frame}{Recommender Systems: Are the Factors Meaningful?}
-    \begin{itemize}
-        \item A numerically low rank is only useful if the recovered factors correspond to something real -- so look at which movies load most heavily on each robust singular vector.
-    \end{itemize}
+    \small
+    A numerically low rank is only useful if the recovered factors correspond to something real -- so look at which movies load most heavily on each robust singular vector.
 
-    \begin{center}
-        \includegraphics[width = 0.62\textwidth]{../../figures/rank_rsvddpd/results_reco_loadings.pdf}        
-    \end{center}
-\end{frame}
+    \vspace*{0.5em}
+    \begin{columns}[T]
+        \begin{column}{0.47\textwidth}
+            \includegraphics[width=\textwidth, trim={20pt 280pt 3pt 38pt}, clip]{../../figures/rank_rsvddpd/results_reco_loadings.pdf}
 
-\begin{frame}{Recommender Systems: Interpreting the Factors}
-    \begin{itemize}
-        \item Factor 1 separates critically-acclaimed classics (\emph{Godfather}, \emph{Pulp Fiction}, \emph{Casablanca}) from forgettable mid-90s blockbusters (\emph{Volcano}, \emph{Dante's Peak}).
-        \pause
-        \item Factor 2 separates arthouse/auteur films (\emph{Fargo}, \emph{2001: A Space Odyssey}, \emph{Citizen Kane}) from mainstream crowd-pleasers (\emph{Independence Day}, \emph{Forrest Gump}).
-        \pause
-        \item[\alert{$\checkmark$}] The robust low-rank structure recovers the ``taste dimensions'' typically found in the recommender-systems literature.
-    \end{itemize}
+            \vspace*{0.3em}
+            \footnotesize Separates critically-acclaimed classics (\emph{Godfather}, \emph{Pulp Fiction}, \emph{Casablanca}) from forgettable mid-90s blockbusters (\emph{Volcano}, \emph{Dante's Peak}).
+        \end{column}
+        \hfill
+        \begin{column}{0.47\textwidth}
+            \includegraphics[width=\textwidth, trim={3pt 19pt 3pt 298pt}, clip]{../../figures/rank_rsvddpd/results_reco_loadings.pdf}
+
+            \vspace*{0.3em}
+            \footnotesize Separates arthouse/auteur films (\emph{Fargo}, \emph{2001: A Space Odyssey}, \emph{Citizen Kane}) from mainstream crowd-pleasers (\emph{Independence Day}, \emph{Forrest Gump}).
+        \end{column}
+    \end{columns}
+
+    \vspace*{0.5em}
+    \pause
+    \alert{$\checkmark$} The robust low-rank structure recovers the ``taste dimensions'' typically found in the recommender-systems literature.
 \end{frame}
 
 \begin{frame}{Summary}
@@ -684,7 +738,7 @@
         \pause
         \item Non-asymptotic bounds pin down exactly when DICMR avoids both over- and underestimation, and it is first-order B-robust by construction.
         \pause
-        \item Across three very different real datasets -- cross-country bond yields, TCGA gene expression, and MovieLens ratings -- DICMR recovers compact, interpretable, and more accurate low-rank structure than classical or resampling alternatives, at a fraction of the computational cost.
+        \item Across three very different real datasets -- cross-country bond yields, TCGA gene expression (shown in paper), and MovieLens ratings -- DICMR recovers compact, interpretable, and more accurate low-rank structure than classical or resampling alternatives, at a fraction of the computational cost.
     \end{itemize}
 \end{frame}
 

@@ -12,3 +12,6 @@ tmp
 *.toc
 *.nav
 *.snm
+
+
+**/.DS_Store
