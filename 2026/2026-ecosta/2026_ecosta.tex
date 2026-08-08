@@ -41,9 +41,9 @@
 \mail{roy.s@wustl.edu}
 \collaboration{in collaboration with \textbf{Abhik Ghosh} and \textbf{Ayanendranath Basu}}
 
-\institute[EcoSta]{EcoSta 2026} 
+\institute[EcoSta]{Washington University in St. Louis} 
 
-\date{Aug 8, 2026} 
+\date{EcoSta Conference, Aug 8, 2026} 
 
 
 % ==========================
@@ -184,20 +184,20 @@
     \end{enumerate}
 \end{frame}
 
-\begin{frame}{Approach 1: Information Criteria}
-    \begin{equation*}
-        C(r) = d(\bb{X}, \widehat{\bb{L}}_r) + r a(\hat{\sigma}) g(n, p).
-    \end{equation*}
-    \noindent The rank is estimated as $\widehat{r} = \argmin_r C(r)$, and $\widehat{\bb{L}}_r$ from the rank $r$ approximation from SVD, $a(\cdot)$ is an appropriate function, and $g(\cdot)$ is the penalty.
+% \begin{frame}{Approach 1: Information Criteria}
+%     \begin{equation*}
+%         C(r) = d(\bb{X}, \widehat{\bb{L}}_r) + r a(\hat{\sigma}) g(n, p).
+%     \end{equation*}
+%     \noindent The rank is estimated as $\widehat{r} = \argmin_r C(r)$, and $\widehat{\bb{L}}_r$ from the rank $r$ approximation from SVD, $a(\cdot)$ is an appropriate function, and $g(\cdot)$ is the penalty.
 
-    \pause
-    \begin{itemize}
-        \item Examples: AIC \cite{akaike1973information}, BIC \cite{schwarz1978estimating}, and the panel-data criteria PC1--PC3, IC1--IC3 of \cite{bai2002determining}.
-        \item A related family: hard/soft \alert{thresholding} of singular values \cite{shabalin2013reconstruction, gavish2014optimal, choi2017selecting, xu2021adaptive}.
-        \pause
-        \item[\textcolor{red}{$\times$}] \textbf{Fast, closed-form} -- but classical criteria is built on $\Vert \bb{X} - \widehat{\bb{L}}_r\Vert_F^2$: \alert{a single outlier can dominate this term} and derail the whole criterion, \emph{even if $\widehat{\bb{L}}_r$ itself comes from a robust SVD}.
-    \end{itemize}    
-\end{frame}
+%     \pause
+%     \begin{itemize}
+%         \item Examples: AIC \cite{akaike1973information}, BIC \cite{schwarz1978estimating}, and the panel-data criteria PC1--PC3, IC1--IC3 of \cite{bai2002determining}.
+%         \item A related family: hard/soft \alert{thresholding} of singular values \cite{shabalin2013reconstruction, gavish2014optimal, choi2017selecting, xu2021adaptive}.
+%         \pause
+%         \item[\textcolor{red}{$\times$}] \textbf{Fast, closed-form} -- but classical criteria is built on $\Vert \bb{X} - \widehat{\bb{L}}_r\Vert_F^2$: \alert{a single outlier can dominate this term} and derail the whole criterion, \emph{even if $\widehat{\bb{L}}_r$ itself comes from a robust SVD}.
+%     \end{itemize}    
+% \end{frame}
 
 % \begin{frame}{Approach 2: Computational Approach}
 %     \begin{itemize}
@@ -213,11 +213,11 @@
 %         \begin{center}
 %             \begin{tikzpicture}[scale=0.55, transform shape]
 %             \tikzstyle{every node}=[font=\sffamily]
-            
+%             
 %             % Legend
 %             \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
 %             \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out (Measure Error)};
-            
+%             
 %             % Matrix 1 (Fold 1)
 %             \begin{scope}[xshift=0cm]
 %                 \fill[blue!15] (0,0) rectangle (4,4);
@@ -230,9 +230,9 @@
 %                 \draw[thick] (0,0) rectangle (4,4);
 %                 \node at (2, -0.8) {\large \textbf{Fold 1}};
 %             \end{scope}
-
+% 
 %             \node at (5, 2) {\Huge $\rightarrow$};
-
+% 
 %             % Matrix 2 (Fold 2)
 %             \begin{scope}[xshift=6cm]
 %                 \fill[blue!15] (0,0) rectangle (4,4);
@@ -245,9 +245,9 @@
 %                 \draw[thick] (0,0) rectangle (4,4);
 %                 \node at (2, -0.8) {\large \textbf{Fold 2}};
 %             \end{scope}
-
+% 
 %             \node at (11, 2) {\Huge $\rightarrow \dots$};
-
+% 
 %             % Matrix 3 (Fold K)
 %             \begin{scope}[xshift=12cm]
 %                 \fill[blue!15] (0,0) rectangle (4,4);
@@ -263,54 +263,54 @@
 %             \end{tikzpicture}
 %         \end{center}
 %     }
-
+% 
 %     \only<3>{
 %         \begin{center}
 %         \begin{tikzpicture}[scale=0.55, transform shape]
 %         \tikzstyle{every node}=[font=\sffamily]
-        
+%         
 %         % Legend
 %         \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
 %         \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
-        
+%         
 %         % Matrix 1 (Fold 1)
 %         \begin{scope}[xshift=0cm]
 %             \fill[blue!15] (0,0) rectangle (4,4);
-            
+%             
 %             % Hold out Row 2 and Column 3
 %             \fill[red!50] (0,2) rectangle (4,3); % Row 2
 %             \fill[red!50] (2,0) rectangle (3,4); % Col 3
-            
+%             
 %             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
 %             \draw[thick] (0,0) rectangle (4,4);
 %             \node at (2, -0.8) {\large \textbf{Fold 1}};
 %         \end{scope}
-
+% 
 %         \node at (5, 2) {\Huge $\rightarrow$};
-
+% 
 %         % Matrix 2 (Fold 2)
 %         \begin{scope}[xshift=6cm]
 %             \fill[blue!15] (0,0) rectangle (4,4);
-            
+%             
 %             % Hold out Row 4 and Column 1
 %             \fill[red!50] (0,0) rectangle (4,1); % Row 4
 %             \fill[red!50] (0,0) rectangle (1,4); % Col 1
-            
+%             
 %             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
 %             \draw[thick] (0,0) rectangle (4,4);
 %             \node at (2, -0.8) {\large \textbf{Fold 2}};
 %         \end{scope}
-
+% 
 %         \node at (11, 2) {\Huge $\rightarrow \dots$};
-
+% 
 %         % Matrix 3 (Fold K)
 %         \begin{scope}[xshift=12cm]
 %             \fill[blue!15] (0,0) rectangle (4,4);
-            
+%             
 %             % Hold out Row 1 and Column 4
 %             \fill[red!50] (0,3) rectangle (4,4); % Row 1
 %             \fill[red!50] (3,0) rectangle (4,4); % Col 4
-            
+%             
 %             \draw[step=1cm,black,very thin] (0,0) grid (4,4);
 %             \draw[thick] (0,0) rectangle (4,4);
 %             \node at (2, -0.8) {\large \textbf{Fold $K$}};
@@ -320,80 +320,124 @@
 %     }
 % \end{frame}
 
-\begin{frame}{Approach 2: Computational Approach}
-    \begin{itemize}
-        \item \textbf{Cross-validation / resampling}: hold out a subset of entries (or rows/columns), refit a rank-$r$ approximation on the rest, and measure prediction error on the held-out part -- repeat over folds and choose $r$ minimizing the prediction error.
-        \item Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, and bi-cross-validation \cite{owen2009bi}. The removal of entries happen at each row / column / block levels.
-    \end{itemize}
+% \begin{frame}{Approach 2: Computational Approach}
+%     \begin{itemize}
+%         \item \textbf{Cross-validation / resampling}: hold out a subset of entries (or rows/columns), refit a rank-$r$ approximation on the rest, and measure prediction error on the held-out part -- repeat over folds and choose $r$ minimizing the prediction error.
+%         \item Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, and bi-cross-validation \cite{owen2009bi}. The removal of entries happen at each row / column / block levels.
+%     \end{itemize}
 
+%     \begin{center}
+%     \begin{tikzpicture}[scale=0.55, transform shape]
+%     \tikzstyle{every node}=[font=\sffamily]
+    
+%     % Legend
+%     \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
+%     \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
+    
+%     % Matrix 1 (Fold 1)
+%     \begin{scope}[xshift=0cm]
+%         \fill[blue!15] (0,0) rectangle (4,4);
+        
+%         % Hold out Row 2 and Column 3
+%         \fill[red!50] (0,2) rectangle (4,3); % Row 2
+%         \fill[red!50] (2,0) rectangle (3,4); % Col 3
+        
+%         \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%         \draw[thick] (0,0) rectangle (4,4);
+%         \node at (2, -0.8) {\large \textbf{Fold 1}};
+%     \end{scope}
+
+%     \node at (5, 2) {\Huge $\rightarrow$};
+
+%     % Matrix 2 (Fold 2)
+%     \begin{scope}[xshift=6cm]
+%         \fill[blue!15] (0,0) rectangle (4,4);
+        
+%         % Hold out Row 4 and Column 1
+%         \fill[red!50] (0,0) rectangle (4,1); % Row 4
+%         \fill[red!50] (0,0) rectangle (1,4); % Col 1
+        
+%         \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%         \draw[thick] (0,0) rectangle (4,4);
+%         \node at (2, -0.8) {\large \textbf{Fold 2}};
+%     \end{scope}
+
+%     \node at (11, 2) {\Huge $\rightarrow \dots$};
+
+%     % Matrix 3 (Fold K)
+%     \begin{scope}[xshift=12cm]
+%         \fill[blue!15] (0,0) rectangle (4,4);
+        
+%         % Hold out Row 1 and Column 4
+%         \fill[red!50] (0,3) rectangle (4,4); % Row 1
+%         \fill[red!50] (3,0) rectangle (4,4); % Col 4
+        
+%         \draw[step=1cm,black,very thin] (0,0) grid (4,4);
+%         \draw[thick] (0,0) rectangle (4,4);
+%         \node at (2, -0.8) {\large \textbf{Fold $K$}};
+%     \end{scope}
+%     \end{tikzpicture}
+%     \end{center}
+% \end{frame}
+
+% \begin{frame}{Cross-validation Challenges}
+%     \begin{itemize}
+%         \item Using classical SVD leads to non-robust selection of rank.
+%         \item Can be robustified by swapping in a robust SVD at every fold \cite{alarcon2022cv} $\ldots$
+%         \item[\textcolor{red}{$\times$}] $\ldots$ \alert{but this is computationally prohibitive}:
+%         \begin{itemize}
+%             \item Gabriel-style CV on a modest $50 \times 40$ matrix needs $\approx 2000$ SVDs.
+%             \item At $\approx 1$ second per robust SVD, rank estimation alone takes $\approx 33$ minutes.
+%         \end{itemize}
+%         \pause
+%         \item One idea is to perform one full-rank (i.e., upto $\min(n,p)$) $\widehat{\bb{X}}$ from a single robust SVD of $\bb{X}$, which replaces outliers with reasonable predictions. Then apply cross-validation with classical SVD on $\widehat{\bb{X}}$, as it is free of outliers -- \alert{but still slower than IC.}
+%     \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{Landscape of Rank-Selection Methods}
     \begin{center}
-    \begin{tikzpicture}[scale=0.55, transform shape]
-    \tikzstyle{every node}=[font=\sffamily]
-    
-    % Legend
-    \node[fill=blue!15, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (4, 5.5) {Training Entries (Fit Robust SVD)};
-    \node[fill=red!50, draw=black, minimum width=2.5cm, minimum height=0.6cm] at (11, 5.5) {Held-out Rows/Cols (Measure Error)};
-    
-    % Matrix 1 (Fold 1)
-    \begin{scope}[xshift=0cm]
-        \fill[blue!15] (0,0) rectangle (4,4);
-        
-        % Hold out Row 2 and Column 3
-        \fill[red!50] (0,2) rectangle (4,3); % Row 2
-        \fill[red!50] (2,0) rectangle (3,4); % Col 3
-        
-        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-        \draw[thick] (0,0) rectangle (4,4);
-        \node at (2, -0.8) {\large \textbf{Fold 1}};
-    \end{scope}
+    \begin{tikzpicture}[scale=0.62, transform shape]
+        \tikzstyle{every node}=[font=\sffamily]
 
-    \node at (5, 2) {\Huge $\rightarrow$};
+        % "Sweet spot" quadrant tint (fast AND robust)
+        % \fill[green!8] (7,7) rectangle (10.4,10.2);
 
-    % Matrix 2 (Fold 2)
-    \begin{scope}[xshift=6cm]
-        \fill[blue!15] (0,0) rectangle (4,4);
-        
-        % Hold out Row 4 and Column 1
-        \fill[red!50] (0,0) rectangle (4,1); % Row 4
-        \fill[red!50] (0,0) rectangle (1,4); % Col 1
-        
-        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-        \draw[thick] (0,0) rectangle (4,4);
-        \node at (2, -0.8) {\large \textbf{Fold 2}};
-    \end{scope}
+        % Axes
+        \only<1->{\draw[->, thick] (0,0) -- (10,0) node[right, font=\bfseries\small] {Computational Efficiency};
+        \draw[->, thick] (0,0) -- (0,10) node[above, font=\bfseries\small] {Robustness};}
 
-    \node at (11, 2) {\Huge $\rightarrow \dots$};
+        % --- Classical closed-form information criteria (fast, not robust) ---
+        \only<2->{\node[circle, fill=red!40, draw=black, inner sep=2.2pt] (aic) at (10.5, 1) {};
+        \node[right, xshift=0.75em, align=center] at (aic) {AIC, BIC, PC$_p$, IC$_p$};}
 
-    % Matrix 3 (Fold K)
-    \begin{scope}[xshift=12cm]
-        \fill[blue!15] (0,0) rectangle (4,4);
-        
-        % Hold out Row 1 and Column 4
-        \fill[red!50] (0,3) rectangle (4,4); % Row 1
-        \fill[red!50] (3,0) rectangle (4,4); % Col 4
-        
-        \draw[step=1cm,black,very thin] (0,0) grid (4,4);
-        \draw[thick] (0,0) rectangle (4,4);
-        \node at (2, -0.8) {\large \textbf{Fold $K$}};
-    \end{scope}
+        \only<2->{\node[circle, fill=red!40, draw=black, inner sep=2.2pt] (thresh) at (9.5, 2.8) {};
+        \node[right, xshift=0.7em, align=center] at (thresh) {Thresholding};}
+
+        % --- Classical (non-robust) cross-validation family ---
+        \only<3->{\node[circle, fill=blue!35, draw=black, inner sep=2.2pt] (wold) at (2.2, 3) {};
+        \node[right, xshift=0.5em, align=center] at (wold) {Wold CV (cell-wise)};}
+
+        \only<3->{\node[circle, fill=blue!35, draw=black, inner sep=2.2pt] (block) at (3, 4) {};
+        \node[right, xshift=0.5em, align=center] at (block) {Gabriel style \\ Bi-CV};}
+
+        % % --- Robustified variants (robust, but slow) ---
+        \only<4->{\node[circle, fill=green!45!black!40, draw=black, inner sep=2.2pt] (hybrid) at (5, 7) {};
+        \node[left, xshift =-0.7em, align=center] at (hybrid) {Robust SVD once,\\then classical CV};}
+
+        \only<4->{\node[circle, fill=green!45!black!40, draw=black, inner sep=2.2pt] (robcv) at (0.9, 8.9) {};
+        \node[right, xshift=0.7em, align=center] at (robcv) {Robustified CV\\(Robust SVD / fold)};}
+
+        % --- DICMR (ours): fast AND robust ---
+        \only<5->{\node[star, star points=5, star point ratio=2.25, fill=yellow!80!orange, draw=black, inner sep=3pt] (dicmr) at (9, 8.9) {};
+        \node[left=6pt, font=\small\bfseries, align=center] at (dicmr) {DICMR\\(ours)};}
     \end{tikzpicture}
     \end{center}
-\end{frame}
 
-\begin{frame}{Cross-validation Challenges}
-    \begin{itemize}
-        \item Using classical SVD leads to non-robust selection of rank.
-        \item Can be robustified by swapping in a robust SVD at every fold \cite{alarcon2022cv} $\ldots$
-        \item[\textcolor{red}{$\times$}] $\ldots$ \alert{but this is computationally prohibitive}:
-        \begin{itemize}
-            \item Gabriel-style CV on a modest $50 \times 40$ matrix needs $\approx 2000$ SVDs.
-            \item At $\approx 1$ second per robust SVD, rank estimation alone takes $\approx 33$ minutes.
-        \end{itemize}
-        \pause
-        \item One idea is to perform one full-rank (i.e., upto $\min(n,p)$) $\widehat{\bb{X}}$ from a single robust SVD of $\bb{X}$, which replaces outliers with reasonable predictions. Then apply cross-validation with classical SVD on $\widehat{\bb{X}}$, as it is free of outliers -- \alert{but still slower than IC.}
-    \end{itemize}
+    \vspace*{0.3em}
+    \tiny
+    \noindent AIC \cite{akaike1973information}; BIC \cite{schwarz1978estimating}; PC$_p$/IC$_p$ \cite{bai2002determining}; SV thresholding \cite{shabalin2013reconstruction, gavish2014optimal, choi2017selecting, xu2021adaptive}; Wold-style CV \cite{wold1978crossvalidation}; Eastment--Krzanowski \cite{eastment1982crossvalidation}, Gabriel-style \cite{gabriel2002lebiplot}, Bi-CV \cite{owen2009bi}; Robustified CV \cite{alarcon2022cv}.
 \end{frame}
-
 
 
 % \begin{frame}{Other Approaches}
@@ -426,21 +470,42 @@
 \end{frame}
 
 
-\begin{frame}{Derivation}
+% \begin{frame}{Derivation}
+%     \small
+%     \only<1->{DIC is simply unbiased estimate of $Q_\alpha(\widehat{\theta})$, where
+%     \begin{equation*}
+%         Q_\alpha(\theta) = \mathbb{E}_{\bb{X}}(H_\alpha(\theta)), \text{ for all } \theta \in \Theta
+%     \end{equation*}}
+%     \vspace*{-1em}
+%     \begin{align*}
+%         \only<2->{Q_\alpha(\bbhat{U}, \bbhat{D}, \bbhat{V}, \hat{\sigma}^2) 
+%         & = \E\left( Q_\alpha(\bbhat{U}, \bbhat{D}, \bb{V}, \hat{\sigma}^2) \mid \bb{V} = \bbhat{V} \right)}\\
+%         & \only<3->{= \E\left( \E\left( H_\alpha(\bbhat{U}, \bbhat{D}) + \dfrac{1}{n}\hat{\sigma}^{-\alpha} \trace(\bb{V}\tr \bb{V}) \dfrac{C_{2\alpha}}{C_\alpha} \right) \mid \bb{V} = \bbhat{V} \right)}\\
+%         & \only<4->{= \E\left( H_\alpha(\hat{\theta}) + \dfrac{r}{n}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha} \right)}\\
+%         & \only<5->{= \E\left( H_\alpha(\hat{\theta}) + \dfrac{r}{p}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha} \right), \text{ by symmetry}}\\
+%         & \only<6->{= \E\left( \underbrace{ H_\alpha(\hat{\theta}) + r \dfrac{(1/n+1/p)}{2}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha}}_{\blue{\mathrm{DICMR}_{\alpha,1}(r)}} \right)}
+%     \end{align*}
+% \end{frame}
+
+
+\begin{frame}{Divergence Information Criterion for Matrix Rank}
     \small
-    \only<1->{DIC is simply unbiased estimate of $Q_\alpha(\widehat{\theta})$, where
-    \begin{equation*}
-        Q_\alpha(\theta) = \mathbb{E}_{\bb{X}}(H_\alpha(\theta)), \text{ for all } \theta \in \Theta
-    \end{equation*}}
-    \vspace*{-1em}
-    \begin{align*}
-        \only<2->{Q_\alpha(\bbhat{U}, \bbhat{D}, \bbhat{V}, \hat{\sigma}^2) 
-        & = \E\left( Q_\alpha(\bbhat{U}, \bbhat{D}, \bb{V}, \hat{\sigma}^2) \mid \bb{V} = \bbhat{V} \right)}\\
-        & \only<3->{= \E\left( \E\left( H_\alpha(\bbhat{U}, \bbhat{D}) + \dfrac{1}{n}\hat{\sigma}^{-\alpha} \trace(\bb{V}\tr \bb{V}) \dfrac{C_{2\alpha}}{C_\alpha} \right) \mid \bb{V} = \bbhat{V} \right)}\\
-        & \only<4->{= \E\left( H_\alpha(\hat{\theta}) + \dfrac{r}{n}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha} \right)}\\
-        & \only<5->{= \E\left( H_\alpha(\hat{\theta}) + \dfrac{r}{p}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha} \right), \text{ by symmetry}}\\
-        & \only<6->{= \E\left( \underbrace{ H_\alpha(\hat{\theta}) + r \dfrac{(1/n+1/p)}{2}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha}}_{\blue{\mathrm{DICMR}_{\alpha,1}(r)}} \right)}
-    \end{align*}
+    \begin{definition}
+        The \emph{Divergence Information Criterion for Matrix Rank} (DICMR) is defined as
+        \begin{equation*}
+            \mathrm{DICMR}_{\alpha,1}(r) = H_\alpha(\hat{\theta}) + r \dfrac{(1/n+1/p)}{2}\hat{\sigma}^{-\alpha}\dfrac{C_{2\alpha}}{C_\alpha},
+        \end{equation*}
+        where $C_\alpha = \int f^{1+\alpha}$.
+    \end{definition}
+
+    \vspace*{0.5em}
+    The rank is estimated as $\widehat{r} = \argmin_r \mathrm{DICMR}_{\alpha,1}(r)$.
+
+    \pause
+    \vspace*{0.5em}
+    DICMR is simply unbiased estimate of $Q_\alpha(\widehat{\theta})$, where $Q_\alpha(\theta) = \mathbb{E}_{\bb{X}}(H_\alpha(\theta))$. 
+
+    Conditioning on $\bb{V}$, the penalty term depends on the gram matrix $\trace (\bb{V}\tr \bb{V})$, which is $r$ due to orthogonalization. 
 \end{frame}
 
 \begin{frame}{Assumptions}
@@ -536,7 +601,7 @@
 
     \pause
     \begin{equation*}
-        \text{DICMR}_{\alpha,2}(r) := H_{r,\alpha}(\bbhat{\theta}_{r,\alpha}) + \dfrac{r \sqrt{(n+p) \log(np)}}{2\sqrt{np}} \widehat{\sigma}_{r,\alpha}^{-\alpha} C^f_{2\alpha}/C^f_{\alpha}
+        \text{DICMR}_{\alpha,2}(r) := H_{\alpha}(\bbhat{\theta}_{r,\alpha}) + \dfrac{r \sqrt{(n+p) \log(np)}}{2\sqrt{np}} \widehat{\sigma}_{r,\alpha}^{-\alpha} C^f_{2\alpha}/C^f_{\alpha}
     \end{equation*}
 \end{frame}
 
@@ -556,17 +621,26 @@
 \thanksframe{Experimental Results}
 
 
-\begin{frame}{Simulation Settings}
-    \begin{itemize}
-        \item Random orthogonal matrices as left (and right) singular vectors.
-        \item Two settings: (i) First $r$ singular values are $1$, rest are $0$. (ii) The singular values are $2, 1 + (r-2)/(r-1), \dots, 1$, and rest are $0$.
-        \item Noise entries are i.i.d. normal with mean zero and variance $\sigma_e^2 = \mathbb{E}(\Vert \bb{L}\Vert_F^2) / (np \times \text{SNR})$.
-        \item SNR levels are $2, 4$ and $10$. Randomly chosen $5\%, 10\%$ or $20\%$ entries are contaminated with a value twice of the maximum.
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Simulation Settings}
+%     \begin{itemize}
+%         \item Random orthogonal matrices as left (and right) singular vectors.
+%         \item Two settings: (i) First $r$ singular values are $1$, rest are $0$. (ii) The singular values are $2, 1 + (r-2)/(r-1), \dots, 1$, and rest are $0$.
+%         \item Noise entries are i.i.d. normal with mean zero and variance $\sigma_e^2 = \mathbb{E}(\Vert \bb{L}\Vert_F^2) / (np \times \text{SNR})$.
+%         \item SNR levels are $2, 4$ and $10$. Randomly chosen $5\%, 10\%$ or $20\%$ entries are contaminated with a value twice of the maximum.
+%     \end{itemize}
+% \end{frame}
 
 \begin{frame}{Simulation Results}
-    \includegraphics[width = \textwidth]{../../figures/rank_rsvddpd/exact_rank_recovery_eigsame.pdf}
+
+    {
+        \centering
+        \includegraphics[width = 0.8\textwidth]{../../figures/rank_rsvddpd/exact_rank_recovery_eigsame.pdf}
+    }
+
+    \begin{enumerate}
+        \item SNR levels are $2, 4$ and $10$. Randomly chosen $5\%, 10\%$ or $20\%$ outliers.
+        \item First $r$ singular values are $1$, rest are $0$.
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}{Computational Complexity}
@@ -575,52 +649,52 @@
     \textbf{Key takeaway:} DICMR is \alert{much faster} and \alert{achieves near perfect} rank selection for large dimensional matrices.
 \end{frame}
 
-\begin{frame}{Finite-Sample Tuning: The Plateau Heuristic}
-    \footnotesize
-    Asymptotic consistency holds for a family of criteria scaled by a constant $c > 0$:
-    \begin{equation*}
-        \tilde{C}_{\alpha}(r) = H_{r,\alpha}(\bbhat{\theta}_{r,\alpha}) + c \cdot r \hat{\sigma}_{r,\alpha}^{-\alpha} \frac{\sqrt{(n+p)\log(np)}}{\sqrt{np}},
-    \end{equation*}
-    \noindent but for finite $n, p$ it needs careful tuning: $c$ too small $\implies$ Overestimation, $c$ too large $\implies$ Underestimation.
+% \begin{frame}{Finite-Sample Tuning: The Plateau Heuristic}
+%     \footnotesize
+%     Asymptotic consistency holds for a family of criteria scaled by a constant $c > 0$:
+%     \begin{equation*}
+%         \tilde{C}_{\alpha}(r) = H_{r,\alpha}(\bbhat{\theta}_{r,\alpha}) + c \cdot r \hat{\sigma}_{r,\alpha}^{-\alpha} \frac{\sqrt{(n+p)\log(np)}}{\sqrt{np}},
+%     \end{equation*}
+%     \noindent but for finite $n, p$ it needs careful tuning: $c$ too small $\implies$ Overestimation, $c$ too large $\implies$ Underestimation.
 
-    \vspace*{0.3em}
-    \textbf{The Plateau Heuristic:} Evaluate optimal rank $r(c)$ over a grid of $c$. The true rank is highly stable against perturbations, corresponding to the \textbf{widest flat region}~\cite{hallin2007determining}.
+%     \vspace*{0.3em}
+%     \textbf{The Plateau Heuristic:} Evaluate optimal rank $r(c)$ over a grid of $c$. The true rank is highly stable against perturbations, corresponding to the \textbf{widest flat region}~\cite{hallin2007determining}.
 
-    \begin{center}
-    \begin{tikzpicture}[scale=0.72, transform shape]
-        % Axes
-        \draw[->, thick] (0,0) -- (9,0) node[right, font=\bfseries] {$c$};
-        \draw[->, thick] (0,0) -- (0,3.5) node[above, font=\bfseries, yshift=1cm] {Selected Rank $r(c)$};
+%     \begin{center}
+%     \begin{tikzpicture}[scale=0.72, transform shape]
+%         % Axes
+%         \draw[->, thick] (0,0) -- (9,0) node[right, font=\bfseries] {$c$};
+%         \draw[->, thick] (0,0) -- (0,3.5) node[above, font=\bfseries, yshift=1cm] {Selected Rank $r(c)$};
 
-        % Ticks
-        \foreach \y in {1,2,3,4,5} \draw (2pt,\y*0.6) -- (-2pt,\y*0.6) node[left] {$\y$};
+%         % Ticks
+%         \foreach \y in {1,2,3,4,5} \draw (2pt,\y*0.6) -- (-2pt,\y*0.6) node[left] {$\y$};
         
-        % The Step Function Lines
-        \draw[thick, blue] (0, 3.0) -- (0.8, 3.0);
-        \draw[dotted, thick, blue] (0.8, 3.0) -- (0.8, 2.4);
+%         % The Step Function Lines
+%         \draw[thick, blue] (0, 3.0) -- (0.8, 3.0);
+%         \draw[dotted, thick, blue] (0.8, 3.0) -- (0.8, 2.4);
         
-        \draw[thick, blue] (0.8, 2.4) -- (1.8, 2.4);
-        \draw[dotted, thick, blue] (1.8, 2.4) -- (1.8, 1.8);
+%         \draw[thick, blue] (0.8, 2.4) -- (1.8, 2.4);
+%         \draw[dotted, thick, blue] (1.8, 2.4) -- (1.8, 1.8);
         
-        % The Plateau (Highlighted)
-        \draw[line width=1.8mm, green!60!black] (1.8, 1.8) -- (6.5, 1.8);
-        \node[above, green!60!black, font=\small\bfseries] at (4.15, 1.9) {Widest Plateau $\implies \hat{r} = 3$};
+%         % The Plateau (Highlighted)
+%         \draw[line width=1.8mm, green!60!black] (1.8, 1.8) -- (6.5, 1.8);
+%         \node[above, green!60!black, font=\small\bfseries] at (4.15, 1.9) {Widest Plateau $\implies \hat{r} = 3$};
         
-        \draw[dotted, thick, blue] (6.5, 1.8) -- (6.5, 1.2);
+%         \draw[dotted, thick, blue] (6.5, 1.8) -- (6.5, 1.2);
         
-        \draw[thick, blue] (6.5, 1.2) -- (7.5, 1.2);
-        \draw[dotted, thick, blue] (7.5, 1.2) -- (7.5, 0.6);
+%         \draw[thick, blue] (6.5, 1.2) -- (7.5, 1.2);
+%         \draw[dotted, thick, blue] (7.5, 1.2) -- (7.5, 0.6);
         
-        \draw[thick, blue] (7.5, 0.6) -- (8.5, 0.6);
+%         \draw[thick, blue] (7.5, 0.6) -- (8.5, 0.6);
 
-        % Annotations with Braces
-        \draw[decorate,decoration={brace,amplitude=5pt},yshift=4pt, thick, darkgray] (0, 3.0) -- (1.8, 3.0) node [midway, yshift=0.5cm, font=\footnotesize, align=center, yshift = 0.5cm] {Overestimation \\ (Noise included)};
+%         % Annotations with Braces
+%         \draw[decorate,decoration={brace,amplitude=5pt},yshift=4pt, thick, darkgray] (0, 3.0) -- (1.8, 3.0) node [midway, yshift=0.5cm, font=\footnotesize, align=center, yshift = 0.5cm] {Overestimation \\ (Noise included)};
         
-        \draw[decorate,decoration={brace,amplitude=5pt},yshift=4pt, thick, darkgray] (6.5, 1.2) -- (8.5, 1.2) node [midway, yshift=0.5cm, font=\footnotesize, align=center, yshift = 0.5cm] {Underestimation \\ (Signal lost)};
+%         \draw[decorate,decoration={brace,amplitude=5pt},yshift=4pt, thick, darkgray] (6.5, 1.2) -- (8.5, 1.2) node [midway, yshift=0.5cm, font=\footnotesize, align=center, yshift = 0.5cm] {Underestimation \\ (Signal lost)};
         
-    \end{tikzpicture}
-    \end{center}
-\end{frame}
+%     \end{tikzpicture}
+%     \end{center}
+% \end{frame}
 
 
 \begin{frame}{Bond Yield Data: Classical Criteria Find Nothing}
@@ -725,8 +799,8 @@
     \end{columns}
 
     \vspace*{0.5em}
-    \pause
-    \alert{$\checkmark$} The robust low-rank structure recovers the ``taste dimensions'' typically found in the recommender-systems literature.
+    % \pause
+    % \alert{$\checkmark$} The robust low-rank structure recovers the ``taste dimensions'' typically found in the recommender-systems literature.
 \end{frame}
 
 \begin{frame}{Summary}
@@ -737,13 +811,15 @@
         \item \textbf{DICMR}: a closed-form penalized criterion built on the density power divergence, inheriting robustness directly from the \texttt{rSVDdpd} estimator.
         \pause
         \item Non-asymptotic bounds pin down exactly when DICMR avoids both over- and underestimation, and it is first-order B-robust by construction.
-        \pause
-        \item Across three very different real datasets -- cross-country bond yields, TCGA gene expression (shown in paper), and MovieLens ratings -- DICMR recovers compact, interpretable, and more accurate low-rank structure than classical or resampling alternatives, at a fraction of the computational cost.
+        % \pause
+        % \item Across different real datasets -- cross-country bond yields, and MovieLens ratings -- DICMR recovers compact, interpretable, and more accurate low-rank structure than classical or resampling alternatives, at a fraction of the computational cost.
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}[allowframebreaks]{References}
+\begingroup
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[allowframebreaks,noframenumbering]{References}
     \tiny
     \begin{thebibliography}{99}
     \bibitem[Hallin and Liška, 2007]{hallin2007determining} Hallin, Marc, and Roman Liška. "Determining the number of factors in the general dynamic factor model." Journal of the American Statistical Association 102, no. 478 (2007): 603-617.
@@ -773,6 +849,7 @@
     \bibitem[Mazumder et al., 2010]{mazumder2010spectral} Mazumder, Rahul, Trevor Hastie, and Robert Tibshirani. "Spectral regularization algorithms for learning large incomplete matrices." The Journal of Machine Learning Research 11 (2010): 2287-2322.
     \end{thebibliography}
 \end{frame}
+\endgroup
 
 
 % =======
@@ -780,7 +857,9 @@
 
 % \thanksframe{Thank You!}
 
-\begin{frame}{Thank You / Questions?}
+\begingroup
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[noframenumbering]{Thank You / Questions?}
     \begin{center}
         \textbf{Subhrajyoty Roy} \\ 
         \texttt{roy.s@wustl.edu} \\
@@ -796,6 +875,7 @@
         \small Paper: \url{https://arxiv.org/abs/2510.19583}
     \end{center}
 \end{frame}
+\endgroup
 
 
 \end{document}
