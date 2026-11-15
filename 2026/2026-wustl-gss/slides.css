@@ -1,0 +1,112 @@
+:root { --r-main-font: "Aptos", "Helvetica Neue", Arial, sans-serif; --r-main-font-size: 30px; --r-heading-font: "Aptos", "Helvetica Neue", Arial, sans-serif; --r-heading-color: #174d78; --r-link-color: #216da4; }
+.reveal h1 { font-size: 1.8em; }
+.reveal h2 { font-size: 1.35em; margin-bottom: 0.6em; }
+.reveal p, .reveal li { line-height: 1.3; }
+.reveal .slides section img { object-fit: contain; max-height: 410px; margin: 8px auto; }
+.reveal .columns .column > p:has(img) { margin: 0; text-align: center; }
+.reveal .columns .column img { max-height: 350px; }
+.reveal #background-modelling .column img, .reveal #background-modelling-problem .column img { max-height: 150px; }
+.reveal .theorem { background: #f2f7f3; border-left: 5px solid #44845b; padding: 0.3em 0.7em; margin: 0.5em 0; }
+.reveal .section-slide { text-align: center; box-sizing: border-box; padding-top: 220px; }
+.reveal .section-slide h2 { font-size: 1.9em; }
+.reveal table { font-size: 0.78em; }
+.reveal .video-comparison { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 60px; }
+.reveal .video-comparison figure { margin: 0; }
+.reveal .video-comparison figcaption { font-size: 1.05em; color: #174d78; margin-bottom: 16px; }
+.reveal .video-comparison video { width: 100%; height: 380px; max-width: 100%; object-fit: contain; background: #111; }
+.reveal .video-controls { display: flex; gap: 16px; align-items: center; margin-top: 30px; }
+.reveal .video-controls button { font: inherit; font-size: 0.8em; padding: 8px 18px; cursor: pointer; }
+.reveal .video-status { font-size: 0.7em; }
+.reveal #title-slide { text-align: left; }
+.reveal #title-slide .subtitle { font-size: 0.8em; margin: 1.8em 0; }
+
+.reveal #svd-as-alternating-regression { font-size: 25px; }
+.reveal #different-choices-of-model-family table { width: auto; max-width: 100%; font-size: 0.95em; margin: 0 auto; }
+
+/* Match the source deck's blue headings, section dividers and theorem boxes. */
+.reveal h2 { color: #2d5fb2; text-align: right; border-bottom: 3px solid #2d5fb2; padding-bottom: 0.2em; }
+.reveal .section-slide { padding-top: 300px; text-align: right; }
+.reveal .section-slide h2 { color: white; border: 0; font-size: 1.7em; }
+.reveal .theorem { border: 2px solid #61a94b; border-radius: 8px; background: #f6fff0; }
+.reveal .beamer-artwork { width: 100%; height: 650px; }
+.reveal .slides section .beamer-artwork img { width: 100%; height: 100%; max-height: 650px; margin: 0; object-fit: contain; }
+.reveal .nuisance-images { height: 350px; }
+.reveal .nuisance-images img { width: 100%; max-height: 350px; }
+/* Beamer pauses are discrete reveals, with no added fading animation. */
+.reveal .slides .fragment { transition: none; }
+.reveal #svd-as-alternating-regression p { margin: 0.35em 0; }
+.reveal #svd-as-alternating-regression mjx-container[display="true"] { margin: 0.55em 0; }
+/* Reserve the full layout so revealing content never shifts earlier lines. */
+.reveal .fixed-steps { display: flex; flex-direction: column; justify-content: center; min-height: 620px; }
+.reveal .fixed-steps > * { width: auto; }
+/* Upcoming steps remain visible in gray until their Reveal fragment appears. */
+.reveal .slides .fragment.dim-until-shown:not(.visible) {
+  visibility: visible;
+  opacity: 0.3;
+  filter: grayscale(1);
+}
+
+/* Keep images and dense slides within the 16:9 presentation area. */
+.reveal #classical-svd-as-the-iterative-regression img { max-height: 260px; }
+.reveal #consistency-and-asymptotic-normality img { max-height: 230px; }
+.reveal .video-comparison { margin-top: 30px; }
+
+/* Enlarge the MovieLens matrix without the global image height cap. */
+.reveal .slides section img.movielens-matrix {
+  display: block;
+  width: 1000px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 0 auto;
+}
+.reveal #recommender-systems-movielens-data > p { margin: 0.3em 0; }
+
+
+/* Center the implication vertically between the two asymptotic illustrations. */
+.reveal .asymptotic-images {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 20px;
+  width: 850px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.reveal .asymptotic-images p { margin: 0; }
+.reveal .asymptotic-images img { display: block; height: 210px; max-height: 210px; margin: 0 auto; }
+.reveal .asymptotic-images .implication { font-size: 1.5em; }
+
+/* Keep sparse slides balanced while preserving space for their reveal steps. */
+.reveal .balanced-content { display: flex; flex-direction: column; justify-content: center; min-height: 620px; }
+.reveal #different-choices-of-model-family .balanced-content { width: 1200px; max-width: 100%; margin: auto; }
+.reveal #different-choices-of-model-family th,
+.reveal #different-choices-of-model-family td { padding: 0.35em 0.65em; }
+.reveal #different-choices-of-model-family .fragment { margin-top: 1em; text-align: center; }
+.reveal #consistency-for-increasing-dimension .balanced-content { font-size: 1.08em; }
+.reveal #consistency-for-increasing-dimension li { margin: 0.5em 0; }
+
+/* Align the regression equations on the left without moving them between steps. */
+.reveal #svd-as-alternating-regression mjx-container[display="true"] { text-align: left !important; }
+.reveal #svd-as-alternating-regression .fixed-steps { padding-left: 30px; box-sizing: border-box; }
+
+.reveal .slides section img.completion-matrix { display: block; width: 1120px; max-width: 100%; max-height: none; height: auto; margin: 0 auto; }
+.reveal #recommender-systems-filling-in-the-blanks > ul { margin-top: 0; margin-bottom: 0.3em; }
+.reveal #recommender-systems-filling-in-the-blanks .center p { margin: 0; }
+.reveal .slides section .timing-chart img { display: block; width: 1200px; max-width: 100%; max-height: 480px; margin: 0 auto; }
+.reveal #processing-time-per-video-frame .cell-output-display p { margin: 0; }
+.reveal .source-note { font-size: 0.68em; line-height: 1.3; color: #555; }
+.reveal .paper-references { font-size: 0.88em; }
+.reveal .paper-references p { margin-top: 1em; }
+.reveal .conclusion-content li { margin: 0.65em 0; }
+.reveal .thank-you-slide { box-sizing: border-box; padding-top: 200px; text-align: center; color: white; }
+.reveal .thank-you-slide h2 { text-align: center; color: white; border: 0; font-size: 2.2em; }
+.reveal .thank-you-slide a { color: white; }
+
+.reveal .slides section .f1-chart img { display: block; width: 1280px; max-width: 100%; max-height: 500px; margin: 0 auto; }
+.reveal #street-video-benchmark-f1-scores .cell-output-display p { margin: 0; }
+
+.reveal .slides section .pca-chart img { display: block; width: 1320px; max-width: 100%; max-height: 520px; height: auto; margin: 0 auto; }
+.reveal #robust-pca-simulation-scenario-s2b .cell-output-display p { margin: 0; }
+.reveal #robust-pca-simulation-scenario-s2b > p { margin: 0.35em 0; }
