@@ -551,20 +551,26 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
 <p><span style="color: blue">As a result, stereographic projection is possible!</span></p>
 </div>
 </section>
+<section id="stereographic-projection" class="slide level2">
+<h2>Stereographic Projection</h2>
+<div class="columns">
+<div class="column" style="width:54%;">
+<p><img data-src="assets/stereographic-projection-2d.svg" style="width:100.0%"></p>
+</div><div class="column" style="width:46%;">
+<ul>
+<li><p><strong>The catch:</strong> A unit singular vector <span class="math inline">\(\boldsymbol{v}_1\)</span> (<span class="math inline">\(\Vert \boldsymbol{v}_1 \Vert_2 = 1\)</span>) lives on the <strong>curved</strong> unit sphere <span class="math inline">\(S^{p-1}\)</span>, not in flat Euclidean space.</p></li>
+<li><p><strong>2D intuition (<span class="math inline">\(S^1 \to \mathbb{R}\)</span>):</strong> Draw a straight ray from the north pole <span class="math inline">\(\boldsymbol{N}\)</span> through <span class="math inline">\(\boldsymbol{v} \in S^1 \setminus \{\boldsymbol{N}\}\)</span>; its intersection with the horizontal line gives <span class="math inline">\(\boldsymbol{\eta} = \text{Stereo}^+(\boldsymbol{v}) \in \mathbb{R}\)</span>.</p></li>
+<li><p><strong>Why it helps:</strong> It smoothly flattens <span class="math inline">\(S^{p-1} \setminus \{\boldsymbol{N}\}\)</span> onto <span class="math inline">\(\mathbb{R}^{p-1}\)</span> (1-to-1), so <span class="math inline">\(\hat{\boldsymbol{\eta}} = \text{Stereo}^+(\hat{\boldsymbol{v}}_1)\)</span> obeys standard Euclidean asymptotic normality.</p></li>
+</ul>
+</div></div>
+</section>
 <section id="consistency-and-asymptotic-normality" class="slide level2">
 <h2>Consistency and Asymptotic Normality</h2>
-<p>Typical consistency and asymptotic normality for i.i.d. sample <span class="math inline">\(X_1, \dots, X_n \in \mathbb{R}^p\)</span> with one caveat.</p>
-<div class="asymptotic-images">
-<div class="asymptotic-image">
-<p><img data-src="assets/figures/thesis_slides/circle-eigen.png" class="nostretch"></p>
-</div>
-<div class="implication">
-<p><span class="math inline">\(\implies\)</span></p>
-</div>
-<div class="asymptotic-image">
-<p><img data-src="assets/figures/thesis_slides/normal-eigen.png" class="nostretch"></p>
-</div>
-</div>
+<p>Assume that,</p>
+<ol type="1">
+<li><p>The true error density <span class="math inline">\(g\)</span> is symmetric.</p></li>
+<li><p><span class="math inline">\(g\)</span> satisfies <span class="math inline">\(\int z^k e^{-\alpha z^2/2}g(z) = O(1)\)</span> for <span class="math inline">\(k = 0, 1, \dots, 4\)</span>.</p></li>
+</ol>
 <div class="theorem">
 <p><strong>Theorem:</strong> (<span style="color: blue">Roy, Basu and Ghosh, 2024</span>) For fixed <span class="math inline">\(p\)</span>, as <span class="math inline">\(n \rightarrow \infty\)</span>, the rSVDdpd estimates <span class="math inline">\(\hat{\lambda}\)</span> and <span class="math inline">\(\hat{\boldsymbol{v}}_1\)</span> and <span class="math inline">\(\hat{\boldsymbol{\eta}} = \text{Stereo}^+(\hat{\boldsymbol{v}}_1)\)</span> satisfies</p>
 <p><span class="math display">\[
@@ -780,11 +786,78 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
 </section>
 <section id="future-directions" class="slide level2">
 <h2>Future Directions</h2>
-<ol type="1">
-<li>Generalization to higher-order tensors – applications to multi-channel video data, economic data, neuroimaging, etc.</li>
-<li>Theoretical analysis under the generalized linear model for binary / count observations.</li>
-<li>Non-i.i.d settings (spatially and temporally dependent errors).</li>
-</ol>
+<p>Extending DPD-based robust low-rank estimation beyond standard i.i.d. numerical matrices:</p>
+<div class="future-grid">
+<div class="future-card">
+<div class="future-visual">
+  <svg viewbox="0 0 220 120" width="210" height="115" aria-hidden="true">
+    <polygon points="35,42 95,42 118,22 58,22" fill="#dbeafe" stroke="#2d5fb2" stroke-width="2"></polygon>
+    <polygon points="95,42 118,22 118,76 95,96" fill="#bfdbfe" stroke="#2d5fb2" stroke-width="2"></polygon>
+    <rect x="35" y="42" width="60" height="54" fill="#eff6ff" stroke="#2d5fb2" stroke-width="2"></rect>
+    <line x1="55" y1="42" x2="55" y2="96" stroke="#93c5fd" stroke-width="1.2"></line>
+    <line x1="75" y1="42" x2="75" y2="96" stroke="#93c5fd" stroke-width="1.2"></line>
+    <line x1="35" y1="60" x2="95" y2="60" stroke="#93c5fd" stroke-width="1.2"></line>
+    <line x1="35" y1="78" x2="95" y2="78" stroke="#93c5fd" stroke-width="1.2"></line>
+    <text x="65" y="73" font-size="15" font-weight="700" fill="#174d78" text-anchor="middle">𝓧</text>
+    <line x1="128" y1="59" x2="152" y2="59" stroke="#616975" stroke-width="2"></line>
+    <polygon points="150,54 159,59 150,64" fill="#616975"></polygon>
+    <rect x="166" y="26" width="12" height="58" rx="2" fill="#2d5fb2" opacity="0.85"></rect>
+    <rect x="184" y="44" width="12" height="40" rx="2" fill="#2d5fb2" opacity="0.65"></rect>
+    <polygon points="166,94 196,94 206,84 176,84" fill="#2d5fb2" opacity="0.45"></polygon>
+    <text x="184" y="110" font-size="11" fill="#475569" text-anchor="middle">CP / Tucker</text>
+  </svg>
+</div>
+<h3 id="higher-order-tensors">1. Higher-Order Tensors</h3>
+<p>Generalize alternating DPD regression from matrices to <span class="math inline">\(k\)</span>-way tensors (e.g., robust CP and Tucker decompositions) to preserve multi-way structure.</p>
+<div class="future-apps">
+<p><strong>Applications:</strong> Multi-channel (RGB) video, neuroimaging (fMRI), longitudinal economic panels.</p>
+</div>
+</div>
+<div class="future-card card-glm">
+<div class="future-visual">
+  <svg viewbox="0 0 220 120" width="210" height="115" aria-hidden="true">
+    <rect x="20" y="24" width="76" height="72" rx="4" fill="#f0fdf4" stroke="#44845b" stroke-width="2"></rect>
+    <g font-size="12" font-weight="700" fill="#166534" text-anchor="middle">
+      <text x="34" y="43">1</text><text x="58" y="43">0</text><text x="82" y="43">3</text>
+      <text x="34" y="65">0</text><text x="58" y="65">1</text><text x="82" y="65">0</text>
+      <text x="34" y="87">2</text><text x="58" y="87">0</text><text x="82" y="87">1</text>
+    </g>
+    <line x1="104" y1="60" x2="134" y2="60" stroke="#616975" stroke-width="2"></line>
+    <polygon points="132,55 141,60 132,65" fill="#616975"></polygon>
+    <text x="122" y="50" font-size="11" font-style="italic" fill="#475569" text-anchor="middle">g(μ)</text>
+    <path d="M 148 86 Q 170 30, 204 34" fill="none" stroke="#44845b" stroke-width="3"></path>
+    <circle cx="160" cy="64" r="3.5" fill="#44845b"></circle>
+    <circle cx="176" cy="45" r="3.5" fill="#44845b"></circle>
+    <circle cx="195" cy="36" r="3.5" fill="#44845b"></circle>
+    <text x="176" y="104" font-size="11" fill="#475569" text-anchor="middle">aᵢᵀbⱼ (low rank)</text>
+  </svg>
+</div>
+<h3 id="generalized-linear-models">2. Generalized Linear Models</h3>
+<p>Extend theory and DPD weights to exponential-family observations via <span class="math inline">\(g(\mathbb{E}[X_{ij}]) = \boldsymbol{a}_i^\top \boldsymbol{b}_j\)</span> for non-Gaussian data.</p>
+<div class="future-apps">
+<p><strong>Applications:</strong> Binary/weighted networks, count matrices, sparse click &amp; purchase logs.</p>
+</div>
+</div>
+<div class="future-card card-dep">
+<div class="future-visual">
+  <svg viewbox="0 0 220 120" width="210" height="115" aria-hidden="true">
+    <line x1="22" y1="88" x2="200" y2="88" stroke="#94a3b8" stroke-width="1.5"></line>
+    <line x1="22" y1="22" x2="22" y2="88" stroke="#94a3b8" stroke-width="1.5"></line>
+    <path d="M 26 68 C 44 34, 62 34, 80 62 C 98 86, 116 30, 138 48 C 156 64, 174 32, 194 50" fill="none" stroke="#e69f00" stroke-width="2.5"></path>
+    <circle cx="116" cy="24" r="4" fill="#d93025"></circle>
+    <line x1="116" y1="28" x2="116" y2="44" stroke="#d93025" stroke-width="1.5" stroke-dasharray="2 2"></line>
+    <path d="M 46 94 Q 63 106, 80 94" fill="none" stroke="#b45309" stroke-width="1.5"></path>
+    <path d="M 80 94 Q 100 106, 120 94" fill="none" stroke="#b45309" stroke-width="1.5"></path>
+    <text x="110" y="114" font-size="11" fill="#475569" text-anchor="middle">Cov(εᵢⱼ, εₗₘ) ≠ 0</text>
+  </svg>
+</div>
+<h3 id="non-i.i.d.-dependence">3. Non-i.i.d. Dependence</h3>
+<p>Relax the independence assumption on <span class="math inline">\(\epsilon_{ij}\)</span> to establish consistency and inference under spatial and temporal correlation.</p>
+<div class="future-apps">
+<p><strong>Applications:</strong> Dynamic/rippling backgrounds, climate fields, time-evolving graphs.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="thank-you-for-listening" class="slide level2 thank-you-slide" data-background-color="#2d5fb2">
 <h2>Thank you for listening</h2>

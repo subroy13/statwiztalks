@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" width="560" height="340" font-family="'Aptos', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="arrow-axis" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 1 2 L 9 5 L 1 8 z" fill="#616975"/>
+    </marker>
+    <marker id="arrow-ray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 2 L 9 5 L 1 8 z" fill="#2d5fb2"/>
+    </marker>
+    <marker id="arrow-ray-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 2 L 9 5 L 1 8 z" fill="#e69f00"/>
+    </marker>
+  </defs>
+
+  <!-- Subtle background -->
+  <rect x="0" y="0" width="560" height="340" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Horizontal real line R (y = 175) -->
+  <line x1="32" y1="175" x2="520" y2="175" stroke="#616975" stroke-width="2" marker-start="url(#arrow-axis)" marker-end="url(#arrow-axis)"/>
+  <text x="508" y="162" font-size="18" font-weight="700" fill="#303030" text-anchor="end">&#x211d;</text>
+
+  <!-- Vertical axis (subtle) -->
+  <line x1="220" y1="30" x2="220" y2="315" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Unit circle S^1 centered at (220, 175), radius 115 -->
+  <circle cx="220" cy="175" r="115" fill="#2d5fb2" fill-opacity="0.05" stroke="#303030" stroke-width="2.5"/>
+  <text x="114" y="90" font-size="17" font-weight="700" fill="#303030">S<tspan baseline-shift="super" font-size="12">1</tspan></text>
+
+  <!-- Origin O -->
+  <circle cx="220" cy="175" r="3" fill="#616975"/>
+  <text x="228" y="193" font-size="14" fill="#616975">0</text>
+
+  <!-- Secondary ray from N(220, 60) through eta_2(172.4, 175) to v_2(138.7, 256.3) -->
+  <line x1="220" y1="60" x2="138.7" y2="256.3" stroke="#e69f00" stroke-width="2" stroke-dasharray="6 4"/>
+  <circle cx="138.7" cy="256.3" r="5.5" fill="#e69f00" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="124" y="274" font-size="15" font-weight="700" fill="#b45309" text-anchor="end">v&#x2032;</text>
+  <circle cx="172.4" cy="175" r="5.5" fill="#e69f00" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="163" y="162" font-size="15" font-weight="700" fill="#b45309" text-anchor="end">&#x03b7;&#x2032;</text>
+
+  <!-- Primary ray from N(220, 60) through v_1(324.2, 126.4) to eta_1(400.5, 175) -->
+  <line x1="220" y1="60" x2="400.5" y2="175" stroke="#2d5fb2" stroke-width="2.5" marker-end="url(#arrow-ray)"/>
+
+  <!-- Point v on S^1 -->
+  <circle cx="324.2" cy="126.4" r="6.5" fill="#2d5fb2" stroke="#ffffff" stroke-width="2"/>
+  <text x="336" y="116" font-size="17" font-weight="700" fill="#2d5fb2">v</text>
+
+  <!-- Projected point eta on R -->
+  <circle cx="400.5" cy="175" r="6.5" fill="#2d5fb2" stroke="#ffffff" stroke-width="2"/>
+  <text x="403" y="200" font-size="17" font-weight="700" fill="#2d5fb2" text-anchor="middle">&#x03b7; = Stereo<tspan baseline-shift="super" font-size="12">+</tspan>(v)</text>
+
+  <!-- North Pole N (excluded) -->
+  <circle cx="220" cy="60" r="6.5" fill="#ffffff" stroke="#d93025" stroke-width="2.5"/>
+  <text x="234" y="54" font-size="16" font-weight="700" fill="#d93025">N (pole excluded)</text>
+
+  <!-- Caption inside diagram -->
+  <text x="280" y="325" font-size="14" fill="#475569" text-anchor="middle">
+    2D view: every point on S<tspan baseline-shift="super" font-size="10">1</tspan> \ {N} maps 1-to-1 onto the line &#x211d;
+  </text>
+</svg>
