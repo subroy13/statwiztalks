@@ -895,6 +895,12 @@ fit <- rSVDdpd(X, alpha = 0.5) # X is the data matrix
 
 :::
 
+## Future Directions
+
+1. Generalization to higher-order tensors -- applications to multi-channel video data, economic data, neuroimaging, etc.
+2. Theoretical analysis under the generalized linear model for binary / count observations.
+3. Non-i.i.d settings (spatially and temporally dependent errors).
+
 
 ## Thank you for listening {.thank-you-slide background-color="#2d5fb2"}
 
