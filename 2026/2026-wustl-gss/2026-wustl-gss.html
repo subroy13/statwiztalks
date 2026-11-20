@@ -660,6 +660,25 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
           display:block!important;
       }</style></aside>
 </section>
+<section id="runtime-scaling-for-first-singular-triplet" class="slide level2">
+<h2>Runtime scaling for first singular triplet</h2>
+<p>Average runtime (ms) on <span class="math inline">\(n \times 25\)</span> uniform matrices across <span class="math inline">\(n \in [5, 1000]\)</span>.</p>
+<div class="runtime-chart">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="2026-wustl-gss_files/figure-revealjs/runtime-scaling-table2-1.svg" alt="Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD." width="1280"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong><code>rSVDdpd</code> (<span class="math inline">\(\alpha=0.1\)</span>) is faster than <code>pcaSVD</code> at every <span class="math inline">\(n\)</span>, and all three <span class="math inline">\(\alpha\)</span> choices beat <code>pcaSVD</code> for <span class="math inline">\(n \ge 100\)</span> (up to <span class="math inline">\(19{,}000\times\)</span> faster than <code>RobRSVD</code> at <span class="math inline">\(n=1000\)</span>).</strong></p>
+<div class="source-note">
+<p>Log-log scale; columns fixed at <span class="math inline">\(25\)</span>. Classical <code>SVD</code> is a non-robust baseline. Source: Table 2 (uniformly distributed <span class="math inline">\(n \times 25\)</span> matrices).</p>
+</div>
+</section>
 <section id="robust-pca-simulation-scenario-s2b" class="slide level2">
 <h2>Robust PCA: simulation scenario S2b</h2>
 <p><strong>20% contamination</strong>, with dimension <span class="math inline">\(p=10,25,50,100,250\)</span>.</p>
@@ -733,6 +752,20 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
 <figure><figcaption>Original footage</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/video512-true.mp4"></video></figure>
 <figure><figcaption>SVD</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/svd-512.mp4"></video></figure>
 <figure><figcaption>rSVDdpd</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/rsvddpd-512.mp4"></video></figure>
+</div>
+<div class="video-controls">
+<button type="button" data-video-action="play">Play all</button>
+<button type="button" data-video-action="pause">Pause all</button>
+<button type="button" data-video-action="restart">Restart all</button>
+<span class="video-status" role="status"></span>
+</div>
+</section>
+<section id="video-comparison-2" class="slide level2">
+<h2>Video comparison 2</h2>
+<div class="video-comparison">
+<figure><figcaption>Original footage</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/video422-true.mp4"></video></figure>
+<figure><figcaption>SVD</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/svd-422.mp4"></video></figure>
+<figure><figcaption>rSVDdpd</figcaption><video controls="" muted="" playsinline="" preload="metadata" data-ignore="" src="vids/rsvddpd-422.mp4"></video></figure>
 </div>
 <div class="video-controls">
 <button type="button" data-video-action="play">Play all</button>

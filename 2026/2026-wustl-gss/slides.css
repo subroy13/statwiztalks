@@ -110,6 +110,9 @@
 .reveal .slides section .pca-chart img { display: block; width: 1320px; max-width: 100%; max-height: 520px; height: auto; margin: 0 auto; }
 .reveal #robust-pca-simulation-scenario-s2b .cell-output-display p { margin: 0; }
 .reveal #robust-pca-simulation-scenario-s2b > p { margin: 0.35em 0; }
+.reveal .slides section .runtime-chart img { display: block; width: 1280px; max-width: 100%; max-height: 500px; height: auto; margin: 0 auto; }
+.reveal #runtime-scaling-for-first-singular-triplet .cell-output-display p { margin: 0; }
+.reveal #runtime-scaling-for-first-singular-triplet > p { margin: 0.35em 0; }
 
 /* Future Directions cards */
 .reveal .future-intro {

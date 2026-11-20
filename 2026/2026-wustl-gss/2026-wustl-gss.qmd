@@ -659,6 +659,96 @@ Higher is better. Orange borders and bold values mark column maxima, including t
 These are the published F1 values supplied in Table 2, not results from a new simulation. Comparisons use the reported three-decimal scores and do not establish statistical significance. rSVDdpd is the sole maximum for V111, V112, V211, V312, V412, and V511; it ties with OP for V212 and V512. OP leads for V311, and SRPCP leads for V411. Precision and recall remain in the source table; this slide compares F1 only.
 :::
 
+## Runtime scaling for first singular triplet
+
+Average runtime (ms) on $n \times 25$ uniform matrices across $n \in [5, 1000]$.
+
+:::: {.runtime-chart}
+
+```{r}
+#| label: runtime-scaling-table2
+#| echo: false
+#| warning: false
+#| message: false
+#| dev: svglite
+#| dev-args: {pointsize: 18}
+#| fig-width: 12.8
+#| fig-height: 5.0
+#| out-width: "1280px"
+#| fig-alt: "Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD."
+
+n_rows <- c(5, 10, 25, 50, 100, 250, 500, 750, 1000)
+runtime_ms <- cbind(
+    SVD = c(0.014, 0.011, 0.008, 0.013, 0.017, 0.026, 0.041, 0.058, 0.072),
+    pcaSVD = c(2.209, 4.388, 4.965, 8.519, 15.696, 32.066, 35.828, 58.697, 69.760),
+    RobSVD = c(3.098, 3.966, 3.989, 7.824, 34.649, 402.125, 2948.001, 10363.441, 26282.893),
+    RobRSVD = c(73.666, 99.077, 81.045, 149.400, 826.440, 7839.942, 54209.150, 210494.564, 531362.110),
+    `rSVDdpd (0.1)` = c(0.545, 0.975, 3.861, 4.396, 5.136, 7.756, 13.622, 24.670, 27.727),
+    `rSVDdpd (0.5)` = c(0.841, 1.508, 6.416, 7.104, 8.683, 13.252, 21.413, 36.563, 40.309),
+    `rSVDdpd (1)` = c(1.417, 2.100, 11.394, 12.526, 14.362, 22.379, 32.404, 55.422, 62.234)
+)
+
+stopifnot(
+    nrow(runtime_ms) == length(n_rows),
+    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "pcaSVD"]),
+    all(runtime_ms[n_rows >= 100, "rSVDdpd (1)"] < runtime_ms[n_rows >= 100, "pcaSVD"]),
+    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "rSVDdpd (0.5)"]),
+    all(runtime_ms[, "rSVDdpd (0.5)"] < runtime_ms[, "rSVDdpd (1)"])
+)
+
+rt_cols <- c("#616975", "#7f8c8d", "#e69f00", "#d93025", "#6baed6", "#2d5fb2", "#08306b")
+rt_lty <- c(2, 3, 1, 1, 1, 1, 1)
+rt_pch <- c(4, 1, 17, 15, 16, 16, 16)
+rt_lwd <- c(1.8, 2.0, 2.4, 2.4, 2.6, 2.8, 3.0)
+
+par(mar = c(3.4, 4.6, 1.0, 12.5), mgp = c(2.2, 0.65, 0), las = 1)
+matplot(n_rows, runtime_ms,
+    type = "b", log = "xy", axes = FALSE,
+    xlim = c(4.5, 1150), ylim = c(0.005, 900000),
+    col = rt_cols, lty = rt_lty, pch = rt_pch, lwd = rt_lwd, cex = 0.85,
+    xlab = "Number of rows (n, log scale)", ylab = ""
+)
+
+y_ticks <- c(0.01, 0.1, 1, 10, 100, 1000, 10000, 100000)
+y_labels <- c("0.01 ms", "0.1 ms", "1 ms", "10 ms", "100 ms", "1 s", "10 s", "100 s")
+abline(h = y_ticks, col = "#edf2f7", lwd = 1)
+abline(v = n_rows, col = "#f1f5f9", lwd = 0.8)
+axis(1, at = n_rows, labels = n_rows, col = "#8b929a", cex.axis = 0.82)
+axis(2, at = y_ticks, labels = y_labels, col = "#8b929a", cex.axis = 0.82)
+
+# Direct end-of-line labels at n = 1000 (spaced in log10 space to prevent overlap)
+end_vals <- runtime_ms[nrow(runtime_ms), ]
+label_y <- end_vals
+label_y["pcaSVD"] <- 240
+label_y["rSVDdpd (1)"] <- 72
+label_y["rSVDdpd (0.5)"] <- 22
+label_y["rSVDdpd (0.1)"] <- 6.8
+
+segments(1030, end_vals, 1165, label_y,
+    col = adjustcolor(rt_cols, alpha.f = 0.45), lwd = 0.9, xpd = NA
+)
+
+end_txt <- c(
+    SVD = "SVD (non-robust): 0.07 ms",
+    pcaSVD = "pcaSVD: 69.8 ms",
+    RobSVD = "RobSVD: 26.3 s",
+    RobRSVD = "RobRSVD: 531.4 s",
+    `rSVDdpd (0.1)` = "rSVDdpd (\u03b1=0.1): 27.7 ms",
+    `rSVDdpd (0.5)` = "rSVDdpd (\u03b1=0.5): 40.3 ms",
+    `rSVDdpd (1)` = "rSVDdpd (\u03b1=1): 62.2 ms"
+)
+text(1185, label_y, labels = end_txt, adj = 0, xpd = NA,
+     col = rt_cols, font = c(1, 1, 2, 2, 2, 2, 2), cex = 0.80)
+```
+
+::::
+
+**`rSVDdpd` ($\alpha=0.1$) is faster than `pcaSVD` at every $n$, and all three $\alpha$ choices beat `pcaSVD` for $n \ge 100$ (up to $19{,}000\times$ faster than `RobRSVD` at $n=1000$).**
+
+::: {.source-note}
+Log-log scale; columns fixed at $25$. Classical `SVD` is a non-robust baseline. Source: Table 2 (uniformly distributed $n \times 25$ matrices).
+:::
+
 ## Robust PCA: simulation scenario S2b
 
 **20% contamination**, with dimension $p=10,25,50,100,250$.
@@ -830,6 +920,23 @@ Rows: frames 5, 50, and 75. The last four columns show estimated foreground.
 <figure><figcaption>Original footage</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/video512-true.mp4"></video></figure>
 <figure><figcaption>SVD</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/svd-512.mp4"></video></figure>
 <figure><figcaption>rSVDdpd</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/rsvddpd-512.mp4"></video></figure>
+</div>
+<div class="video-controls">
+<button type="button" data-video-action="play">Play all</button>
+<button type="button" data-video-action="pause">Pause all</button>
+<button type="button" data-video-action="restart">Restart all</button>
+<span class="video-status" role="status"></span>
+</div>
+```
+
+
+
+## Video comparison 2
+```{=html}
+<div class="video-comparison">
+<figure><figcaption>Original footage</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/video422-true.mp4"></video></figure>
+<figure><figcaption>SVD</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/svd-422.mp4"></video></figure>
+<figure><figcaption>rSVDdpd</figcaption><video controls muted playsinline preload="metadata" data-ignore src="vids/rsvddpd-422.mp4"></video></figure>
 </div>
 <div class="video-controls">
 <button type="button" data-video-action="play">Play all</button>
