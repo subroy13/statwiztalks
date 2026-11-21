@@ -517,6 +517,197 @@ In many situations, you will have $n, p \to \infty$ but $n/p \to \text{constant}
 
 ## Simulation Results {.section-slide background-color="#2d5fb2"}
 
+## Runtime scaling
+
+Average runtime (ms) on $n \times 25$ uniform matrices across $n \in [5, 1000]$.
+
+:::: {.runtime-chart}
+
+```{r}
+#| label: runtime-scaling-table2
+#| echo: false
+#| warning: false
+#| message: false
+#| dev: svglite
+#| dev-args: {pointsize: 18}
+#| fig-width: 12.8
+#| fig-height: 5.0
+#| out-width: "1280px"
+#| fig-alt: "Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD."
+
+n_rows <- c(5, 10, 25, 50, 100, 250, 500, 750, 1000)
+runtime_ms <- cbind(
+    SVD = c(0.014, 0.011, 0.008, 0.013, 0.017, 0.026, 0.041, 0.058, 0.072),
+    pcaSVD = c(2.209, 4.388, 4.965, 8.519, 15.696, 32.066, 35.828, 58.697, 69.760),
+    RobSVD = c(3.098, 3.966, 3.989, 7.824, 34.649, 402.125, 2948.001, 10363.441, 26282.893),
+    RobRSVD = c(73.666, 99.077, 81.045, 149.400, 826.440, 7839.942, 54209.150, 210494.564, 531362.110),
+    `rSVDdpd (0.1)` = c(0.545, 0.975, 3.861, 4.396, 5.136, 7.756, 13.622, 24.670, 27.727),
+    `rSVDdpd (0.5)` = c(0.841, 1.508, 6.416, 7.104, 8.683, 13.252, 21.413, 36.563, 40.309),
+    `rSVDdpd (1)` = c(1.417, 2.100, 11.394, 12.526, 14.362, 22.379, 32.404, 55.422, 62.234)
+)
+
+stopifnot(
+    nrow(runtime_ms) == length(n_rows),
+    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "pcaSVD"]),
+    all(runtime_ms[n_rows >= 100, "rSVDdpd (1)"] < runtime_ms[n_rows >= 100, "pcaSVD"]),
+    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "rSVDdpd (0.5)"]),
+    all(runtime_ms[, "rSVDdpd (0.5)"] < runtime_ms[, "rSVDdpd (1)"])
+)
+
+rt_cols <- c("#616975", "#7f8c8d", "#e69f00", "#d93025", "#6baed6", "#2d5fb2", "#08306b")
+rt_lty <- c(2, 3, 1, 1, 1, 1, 1)
+rt_pch <- c(4, 1, 17, 15, 16, 16, 16)
+rt_lwd <- c(1.8, 2.0, 2.4, 2.4, 2.6, 2.8, 3.0)
+
+par(mar = c(3.4, 4.6, 1.0, 12.5), mgp = c(2.2, 0.65, 0), las = 1)
+matplot(n_rows, runtime_ms,
+    type = "b", log = "xy", axes = FALSE,
+    xlim = c(4.5, 1150), ylim = c(0.005, 900000),
+    col = rt_cols, lty = rt_lty, pch = rt_pch, lwd = rt_lwd, cex = 0.85,
+    xlab = "Number of rows (n, log scale)", ylab = ""
+)
+
+y_ticks <- c(0.01, 0.1, 1, 10, 100, 1000, 10000, 100000)
+y_labels <- c("0.01 ms", "0.1 ms", "1 ms", "10 ms", "100 ms", "1 s", "10 s", "100 s")
+abline(h = y_ticks, col = "#edf2f7", lwd = 1)
+abline(v = n_rows, col = "#f1f5f9", lwd = 0.8)
+axis(1, at = n_rows, labels = n_rows, col = "#8b929a", cex.axis = 0.82)
+axis(2, at = y_ticks, labels = y_labels, col = "#8b929a", cex.axis = 0.82)
+
+# Direct end-of-line labels at n = 1000 (spaced in log10 space to prevent overlap)
+end_vals <- runtime_ms[nrow(runtime_ms), ]
+label_y <- end_vals
+label_y["pcaSVD"] <- 240
+label_y["rSVDdpd (1)"] <- 72
+label_y["rSVDdpd (0.5)"] <- 22
+label_y["rSVDdpd (0.1)"] <- 6.8
+
+segments(1030, end_vals, 1165, label_y,
+    col = adjustcolor(rt_cols, alpha.f = 0.45), lwd = 0.9, xpd = NA
+)
+
+end_txt <- c(
+    SVD = "PCA (non-robust): 0.07 ms",
+    pcaSVD = "RobCov: 69.8 ms",
+    RobSVD = "RobPCA: 26.3 s",
+    RobRSVD = "RobRPCA: 531.4 s",
+    `rSVDdpd (0.1)` = "rSVDdpd (\u03b1=0.1): 27.7 ms",
+    `rSVDdpd (0.5)` = "rSVDdpd (\u03b1=0.5): 40.3 ms",
+    `rSVDdpd (1)` = "rSVDdpd (\u03b1=1): 62.2 ms"
+)
+text(1185, label_y,
+    labels = end_txt, adj = 0, xpd = NA,
+    col = rt_cols, font = c(1, 1, 2, 2, 2, 2, 2), cex = 0.80
+)
+```
+
+::::
+
+**`rSVDdpd` ($\alpha=0.1$) is faster than `RobCov` at every $n$, and all three $\alpha$ choices beat `RobCov` for $n \ge 100$ (up to $19{,}000\times$ faster than `RobRPCA` at $n=1000$).**
+
+::: {.source-note}
+Log-log scale; columns fixed at $25$. Classical `PCA` is a non-robust baseline. Source: Table 2 (uniformly distributed $n \times 25$ matrices).
+:::
+
+## Performance Metrics
+
+**20% contamination**, with dimension $n = 100$ and $p=10,25,50,100,250$, rank $r = 5$.
+
+:::: {.pca-chart}
+
+```{r}
+#| label: robust-pca-s2b
+#| echo: false
+#| warning: false
+#| message: false
+#| dev: svglite
+#| dev-args: {pointsize: 18}
+#| fig-width: 13.2
+#| fig-height: 5.2
+#| out-width: "1320px"
+#| fig-alt: "Three panels compare Bias, MAE and SRE across five dimensions for all twelve PCA methods in scenario S2b. The four DPD curves are blue. DPD with alpha equal to one has the lowest reported Bias and MAE at every dimension. Missing RobCov results at p at least fifty are not interpolated."
+
+# Published Table 3, Roy, Basu and Ghosh (2024), JMLR.
+# Columns follow the supplied table; NA denotes an unreported result.
+p_dimension <- c(10, 25, 50, 100, 250)
+pca_methods <- c(
+    "Classical", "LOC", "ROBPCA", "Proj", "RobCov", "Grid",
+    "Gmed", "PCP", "DPD (0.25)", "DPD (0.5)", "DPD (0.75)", "DPD (1)"
+)
+pca_results <- list(
+    Bias = matrix(c(
+        0.321, 0.757, 0.381, 0.429, 0.589, 0.757, 0.140, 1.065, 0.329, 0.281, 0.138, 0.067,
+        0.553, 2.198, 0.368, 0.635, 1.004, 1.344, 0.235, 2.451, 0.568, 0.364, 0.073, 0.036,
+        1.467, 4.602, 0.829, 1.796, NA, 3.221, 0.583, 4.617, 1.480, 0.970, 0.323, 0.182,
+        2.660, 9.414, 1.028, 2.692, NA, 6.019, 1.235, 9.159, 2.766, 2.005, 0.533, 0.200,
+        7.033, 23.805, 3.245, 8.006, NA, 15.969, 2.746, 22.799, 7.089, 4.447, 1.446, 0.299
+    ), nrow = 5, byrow = TRUE),
+    MAE = matrix(c(
+        41.990, 75.693, 43.080, 52.712, 60.646, 82.448, 30.185, 106.511, 45.196, 42.803, 29.261, 22.409,
+        85.197, 219.781, 63.246, 93.376, 112.498, 165.495, 65.545, 245.114, 90.830, 74.713, 45.453, 41.413,
+        194.589, 460.223, 130.581, 236.929, NA, 406.956, 144.635, 462.199, 209.841, 172.386, 110.373, 96.321,
+        364.678, 941.397, 221.517, 400.614, NA, 665.195, 267.786, 916.897, 394.475, 317.498, 173.981, 142.885,
+        957.207, 2380.505, 518.404, 1066.532, NA, 1696.499, 658.650, 2283.607, 1060.277, 838.361, 545.850, 432.927
+    ), nrow = 5, byrow = TRUE),
+    SRE = matrix(c(
+        1.812, 2.049, 1.109, 2.346, 1.424, 2.886, 1.889, 1.197, 1.811, 1.774, 1.405, 1.111,
+        2.140, 2.422, 1.021, 2.645, 2.212, 4.190, 2.260, 1.276, 2.152, 1.832, 1.111, 1.030,
+        2.219, 2.472, 1.020, 2.828, NA, 4.985, 2.314, 2.265, 2.240, 1.819, 1.201, 1.049,
+        2.227, 2.453, 1.043, 2.868, NA, 3.860, 2.326, 2.272, 2.242, 1.868, 1.153, 1.007,
+        2.249, 2.549, 1.066, 2.976, NA, 3.901, 2.362, 2.302, 2.262, 1.767, 1.160, 1.007
+    ), nrow = 5, byrow = TRUE)
+)
+# Check the missing entries and the slide's descriptive takeaway.
+stopifnot(
+    all(vapply(pca_results, function(x) {
+        sum(is.na(x)) == 3 &&
+            all(is.na(x[3:5, 5]))
+    }, logical(1))),
+    all(apply(pca_results$Bias, 1, which.min) == 12),
+    all(apply(pca_results$MAE, 1, which.min) == 12)
+)
+pca_colours <- c(
+    "#333333", "#999999", "#d55e00", "#888888", "#bbbbbb", "#777777",
+    "#009e73", "#aaaaaa", "#91b9de", "#5695c9", "#2166ac", "#08306b"
+)
+pca_lty <- c(1, 2, 1, 3, 4, 5, 1, 6, 4, 3, 2, 1)
+pca_pch <- c(1, 2, 17, 3, 4, 5, 15, 6, 0, 2, 5, 16)
+pca_lwd <- c(1.2, 1.2, 2, 1.2, 1.2, 1.2, 2, 1.2, 2, 2, 2.5, 3)
+layout(rbind(c(1, 2, 3), c(4, 4, 4)), heights = c(4, 1.2))
+par(mar = c(3.1, 3.1, 2.2, 0.8), mgp = c(1.9, 0.6, 0), las = 1)
+for (metric in names(pca_results)) {
+    matplot(p_dimension, pca_results[[metric]],
+        type = "b",
+        log = if (metric == "SRE") "x" else "xy", xaxt = "n",
+        col = pca_colours, lty = pca_lty, pch = pca_pch, lwd = pca_lwd,
+        cex = 0.65, cex.axis = 0.78, bty = "l", xlab = "Dimension p", ylab = "",
+        main = paste0(metric, if (metric == "SRE") " (linear)" else " (log scale)"),
+        cex.main = 1
+    )
+    axis(1, at = p_dimension, labels = p_dimension, cex.axis = 0.78)
+}
+par(mar = c(0, 0, 0, 0))
+plot.new()
+legend("center",
+    legend = pca_methods, ncol = 4, bty = "n", cex = 0.83,
+    col = pca_colours, lty = pca_lty, pch = pca_pch, lwd = pca_lwd,
+    x.intersp = 0.65, y.intersp = 1.05
+)
+```
+
+::::
+
+**DPD ($\alpha=1$) has the lowest reported Bias and MAE at every dimension.**
+
+::: {.source-note}
+Lower is better for all metrics. Bias/MAE use log scales; SRE uses a linear scale. All panels use a log-scaled $p$ axis. RobCov has no reported results for $p\geq50$. Source: [Roy, Basu and Ghosh (2024), JMLR, Table 3 (S2b)](https://jmlr.org/papers/volume25/23-1096/23-1096.pdf).
+:::
+
+::: {.notes}
+These are published simulation summaries, not a new simulation run. All 12 methods and all 180 table entries are retained in the source, including the nine NA entries. The four DPD series correspond to robustness tuning parameters alpha = 0.25, 0.5, 0.75 and 1. Scenario S2b uses contamination probability 0.2 with f1 = 3 and f2 = 1. ROBPCA has the lowest reported SRE at p = 10, 25 and 50, while DPD (1) has the lowest SRE at p = 100 and 250. No replicate-level uncertainty is available in the supplied table, so no confidence intervals or significance claims are inferred. Connecting lines guide comparisons across dimensions.
+:::
+
+
 ## Processing time per video frame
 
 :::: {.timing-chart}
@@ -659,193 +850,7 @@ Higher is better. Orange borders and bold values mark column maxima, including t
 These are the published F1 values supplied in Table 2, not results from a new simulation. Comparisons use the reported three-decimal scores and do not establish statistical significance. rSVDdpd is the sole maximum for V111, V112, V211, V312, V412, and V511; it ties with OP for V212 and V512. OP leads for V311, and SRPCP leads for V411. Precision and recall remain in the source table; this slide compares F1 only.
 :::
 
-## Runtime scaling for first singular triplet
 
-Average runtime (ms) on $n \times 25$ uniform matrices across $n \in [5, 1000]$.
-
-:::: {.runtime-chart}
-
-```{r}
-#| label: runtime-scaling-table2
-#| echo: false
-#| warning: false
-#| message: false
-#| dev: svglite
-#| dev-args: {pointsize: 18}
-#| fig-width: 12.8
-#| fig-height: 5.0
-#| out-width: "1280px"
-#| fig-alt: "Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD."
-
-n_rows <- c(5, 10, 25, 50, 100, 250, 500, 750, 1000)
-runtime_ms <- cbind(
-    SVD = c(0.014, 0.011, 0.008, 0.013, 0.017, 0.026, 0.041, 0.058, 0.072),
-    pcaSVD = c(2.209, 4.388, 4.965, 8.519, 15.696, 32.066, 35.828, 58.697, 69.760),
-    RobSVD = c(3.098, 3.966, 3.989, 7.824, 34.649, 402.125, 2948.001, 10363.441, 26282.893),
-    RobRSVD = c(73.666, 99.077, 81.045, 149.400, 826.440, 7839.942, 54209.150, 210494.564, 531362.110),
-    `rSVDdpd (0.1)` = c(0.545, 0.975, 3.861, 4.396, 5.136, 7.756, 13.622, 24.670, 27.727),
-    `rSVDdpd (0.5)` = c(0.841, 1.508, 6.416, 7.104, 8.683, 13.252, 21.413, 36.563, 40.309),
-    `rSVDdpd (1)` = c(1.417, 2.100, 11.394, 12.526, 14.362, 22.379, 32.404, 55.422, 62.234)
-)
-
-stopifnot(
-    nrow(runtime_ms) == length(n_rows),
-    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "pcaSVD"]),
-    all(runtime_ms[n_rows >= 100, "rSVDdpd (1)"] < runtime_ms[n_rows >= 100, "pcaSVD"]),
-    all(runtime_ms[, "rSVDdpd (0.1)"] < runtime_ms[, "rSVDdpd (0.5)"]),
-    all(runtime_ms[, "rSVDdpd (0.5)"] < runtime_ms[, "rSVDdpd (1)"])
-)
-
-rt_cols <- c("#616975", "#7f8c8d", "#e69f00", "#d93025", "#6baed6", "#2d5fb2", "#08306b")
-rt_lty <- c(2, 3, 1, 1, 1, 1, 1)
-rt_pch <- c(4, 1, 17, 15, 16, 16, 16)
-rt_lwd <- c(1.8, 2.0, 2.4, 2.4, 2.6, 2.8, 3.0)
-
-par(mar = c(3.4, 4.6, 1.0, 12.5), mgp = c(2.2, 0.65, 0), las = 1)
-matplot(n_rows, runtime_ms,
-    type = "b", log = "xy", axes = FALSE,
-    xlim = c(4.5, 1150), ylim = c(0.005, 900000),
-    col = rt_cols, lty = rt_lty, pch = rt_pch, lwd = rt_lwd, cex = 0.85,
-    xlab = "Number of rows (n, log scale)", ylab = ""
-)
-
-y_ticks <- c(0.01, 0.1, 1, 10, 100, 1000, 10000, 100000)
-y_labels <- c("0.01 ms", "0.1 ms", "1 ms", "10 ms", "100 ms", "1 s", "10 s", "100 s")
-abline(h = y_ticks, col = "#edf2f7", lwd = 1)
-abline(v = n_rows, col = "#f1f5f9", lwd = 0.8)
-axis(1, at = n_rows, labels = n_rows, col = "#8b929a", cex.axis = 0.82)
-axis(2, at = y_ticks, labels = y_labels, col = "#8b929a", cex.axis = 0.82)
-
-# Direct end-of-line labels at n = 1000 (spaced in log10 space to prevent overlap)
-end_vals <- runtime_ms[nrow(runtime_ms), ]
-label_y <- end_vals
-label_y["pcaSVD"] <- 240
-label_y["rSVDdpd (1)"] <- 72
-label_y["rSVDdpd (0.5)"] <- 22
-label_y["rSVDdpd (0.1)"] <- 6.8
-
-segments(1030, end_vals, 1165, label_y,
-    col = adjustcolor(rt_cols, alpha.f = 0.45), lwd = 0.9, xpd = NA
-)
-
-end_txt <- c(
-    SVD = "SVD (non-robust): 0.07 ms",
-    pcaSVD = "pcaSVD: 69.8 ms",
-    RobSVD = "RobSVD: 26.3 s",
-    RobRSVD = "RobRSVD: 531.4 s",
-    `rSVDdpd (0.1)` = "rSVDdpd (\u03b1=0.1): 27.7 ms",
-    `rSVDdpd (0.5)` = "rSVDdpd (\u03b1=0.5): 40.3 ms",
-    `rSVDdpd (1)` = "rSVDdpd (\u03b1=1): 62.2 ms"
-)
-text(1185, label_y, labels = end_txt, adj = 0, xpd = NA,
-     col = rt_cols, font = c(1, 1, 2, 2, 2, 2, 2), cex = 0.80)
-```
-
-::::
-
-**`rSVDdpd` ($\alpha=0.1$) is faster than `pcaSVD` at every $n$, and all three $\alpha$ choices beat `pcaSVD` for $n \ge 100$ (up to $19{,}000\times$ faster than `RobRSVD` at $n=1000$).**
-
-::: {.source-note}
-Log-log scale; columns fixed at $25$. Classical `SVD` is a non-robust baseline. Source: Table 2 (uniformly distributed $n \times 25$ matrices).
-:::
-
-## Robust PCA: simulation scenario S2b
-
-**20% contamination**, with dimension $p=10,25,50,100,250$.
-
-:::: {.pca-chart}
-
-```{r}
-#| label: robust-pca-s2b
-#| echo: false
-#| warning: false
-#| message: false
-#| dev: svglite
-#| dev-args: {pointsize: 18}
-#| fig-width: 13.2
-#| fig-height: 5.2
-#| out-width: "1320px"
-#| fig-alt: "Three panels compare Bias, MAE and SRE across five dimensions for all twelve PCA methods in scenario S2b. The four DPD curves are blue. DPD with alpha equal to one has the lowest reported Bias and MAE at every dimension. Missing RobCov results at p at least fifty are not interpolated."
-
-# Published Table 3, Roy, Basu and Ghosh (2024), JMLR.
-# Columns follow the supplied table; NA denotes an unreported result.
-p_dimension <- c(10, 25, 50, 100, 250)
-pca_methods <- c(
-    "Classical", "LOC", "ROBPCA", "Proj", "RobCov", "Grid",
-    "Gmed", "PCP", "DPD (0.25)", "DPD (0.5)", "DPD (0.75)", "DPD (1)"
-)
-pca_results <- list(
-    Bias = matrix(c(
-        0.321, 0.757, 0.381, 0.429, 0.589, 0.757, 0.140, 1.065, 0.329, 0.281, 0.138, 0.067,
-        0.553, 2.198, 0.368, 0.635, 1.004, 1.344, 0.235, 2.451, 0.568, 0.364, 0.073, 0.036,
-        1.467, 4.602, 0.829, 1.796, NA, 3.221, 0.583, 4.617, 1.480, 0.970, 0.323, 0.182,
-        2.660, 9.414, 1.028, 2.692, NA, 6.019, 1.235, 9.159, 2.766, 2.005, 0.533, 0.200,
-        7.033, 23.805, 3.245, 8.006, NA, 15.969, 2.746, 22.799, 7.089, 4.447, 1.446, 0.299
-    ), nrow = 5, byrow = TRUE),
-    MAE = matrix(c(
-        41.990, 75.693, 43.080, 52.712, 60.646, 82.448, 30.185, 106.511, 45.196, 42.803, 29.261, 22.409,
-        85.197, 219.781, 63.246, 93.376, 112.498, 165.495, 65.545, 245.114, 90.830, 74.713, 45.453, 41.413,
-        194.589, 460.223, 130.581, 236.929, NA, 406.956, 144.635, 462.199, 209.841, 172.386, 110.373, 96.321,
-        364.678, 941.397, 221.517, 400.614, NA, 665.195, 267.786, 916.897, 394.475, 317.498, 173.981, 142.885,
-        957.207, 2380.505, 518.404, 1066.532, NA, 1696.499, 658.650, 2283.607, 1060.277, 838.361, 545.850, 432.927
-    ), nrow = 5, byrow = TRUE),
-    SRE = matrix(c(
-        1.812, 2.049, 1.109, 2.346, 1.424, 2.886, 1.889, 1.197, 1.811, 1.774, 1.405, 1.111,
-        2.140, 2.422, 1.021, 2.645, 2.212, 4.190, 2.260, 1.276, 2.152, 1.832, 1.111, 1.030,
-        2.219, 2.472, 1.020, 2.828, NA, 4.985, 2.314, 2.265, 2.240, 1.819, 1.201, 1.049,
-        2.227, 2.453, 1.043, 2.868, NA, 3.860, 2.326, 2.272, 2.242, 1.868, 1.153, 1.007,
-        2.249, 2.549, 1.066, 2.976, NA, 3.901, 2.362, 2.302, 2.262, 1.767, 1.160, 1.007
-    ), nrow = 5, byrow = TRUE)
-)
-# Check the missing entries and the slide's descriptive takeaway.
-stopifnot(
-    all(vapply(pca_results, function(x) {
-        sum(is.na(x)) == 3 &&
-            all(is.na(x[3:5, 5]))
-    }, logical(1))),
-    all(apply(pca_results$Bias, 1, which.min) == 12),
-    all(apply(pca_results$MAE, 1, which.min) == 12)
-)
-pca_colours <- c(
-    "#333333", "#999999", "#d55e00", "#888888", "#bbbbbb", "#777777",
-    "#009e73", "#aaaaaa", "#91b9de", "#5695c9", "#2166ac", "#08306b"
-)
-pca_lty <- c(1, 2, 1, 3, 4, 5, 1, 6, 4, 3, 2, 1)
-pca_pch <- c(1, 2, 17, 3, 4, 5, 15, 6, 0, 2, 5, 16)
-pca_lwd <- c(1.2, 1.2, 2, 1.2, 1.2, 1.2, 2, 1.2, 2, 2, 2.5, 3)
-layout(rbind(c(1, 2, 3), c(4, 4, 4)), heights = c(4, 1.2))
-par(mar = c(3.1, 3.1, 2.2, 0.8), mgp = c(1.9, 0.6, 0), las = 1)
-for (metric in names(pca_results)) {
-    matplot(p_dimension, pca_results[[metric]],
-        type = "b",
-        log = if (metric == "SRE") "x" else "xy", xaxt = "n",
-        col = pca_colours, lty = pca_lty, pch = pca_pch, lwd = pca_lwd,
-        cex = 0.65, cex.axis = 0.78, bty = "l", xlab = "Dimension p", ylab = "",
-        main = paste0(metric, if (metric == "SRE") " (linear)" else " (log scale)"),
-        cex.main = 1
-    )
-    axis(1, at = p_dimension, labels = p_dimension, cex.axis = 0.78)
-}
-par(mar = c(0, 0, 0, 0))
-plot.new()
-legend("center",
-    legend = pca_methods, ncol = 4, bty = "n", cex = 0.83,
-    col = pca_colours, lty = pca_lty, pch = pca_pch, lwd = pca_lwd,
-    x.intersp = 0.65, y.intersp = 1.05
-)
-```
-
-::::
-
-**DPD ($\alpha=1$) has the lowest reported Bias and MAE at every dimension.**
-
-::: {.source-note}
-Lower is better for all metrics. Bias/MAE use log scales; SRE uses a linear scale. All panels use a log-scaled $p$ axis. RobCov has no reported results for $p\geq50$. Source: [Roy, Basu and Ghosh (2024), JMLR, Table 3 (S2b)](https://jmlr.org/papers/volume25/23-1096/23-1096.pdf).
-:::
-
-::: {.notes}
-These are published simulation summaries, not a new simulation run. All 12 methods and all 180 table entries are retained in the source, including the nine NA entries. The four DPD series correspond to robustness tuning parameters alpha = 0.25, 0.5, 0.75 and 1. Scenario S2b uses contamination probability 0.2 with f1 = 3 and f2 = 1. ROBPCA has the lowest reported SRE at p = 10, 25 and 50, while DPD (1) has the lowest SRE at p = 100 and 250. No replicate-level uncertainty is available in the supplied table, so no confidence intervals or significance claims are inferred. Connecting lines guide comparisons across dimensions.
-:::
 
 ## Putting it to use! {.section-slide background-color="#2d5fb2"}
 

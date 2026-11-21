@@ -227,10 +227,10 @@
 <line x1='620.98' y1='165.48' x2='632.34' y2='183.62' style='stroke-width: 0.67; stroke: #6BAED6; stroke-opacity: 0.45;' />
 <line x1='620.98' y1='160.65' x2='632.34' y2='168.47' style='stroke-width: 0.67; stroke: #2D5FB2; stroke-opacity: 0.45;' />
 <line x1='620.98' y1='155.05' x2='632.34' y2='153.17' style='stroke-width: 0.67; stroke: #08306B; stroke-opacity: 0.45;' />
-<text x='633.91' y='246.05' style='font-size: 14.40px;fill: #616975; font-family: "Arial";' textLength='171.16px' lengthAdjust='spacingAndGlyphs'>SVD (non-robust): 0.07 ms</text>
-<text x='633.91' y='141.44' style='font-size: 14.40px;fill: #7F8C8D; font-family: "Arial";' textLength='111.97px' lengthAdjust='spacingAndGlyphs'>pcaSVD: 69.8 ms</text>
-<text x='633.91' y='82.17' style='font-size: 14.40px; font-weight: bold;fill: #E69F00; font-family: "Arial";' textLength='106.36px' lengthAdjust='spacingAndGlyphs'>RobSVD: 26.3 s</text>
-<text x='633.91' y='43.36' style='font-size: 14.40px; font-weight: bold;fill: #D93025; font-family: "Arial";' textLength='124.75px' lengthAdjust='spacingAndGlyphs'>RobRSVD: 531.4 s</text>
+<text x='633.91' y='246.05' style='font-size: 14.40px;fill: #616975; font-family: "Arial";' textLength='170.36px' lengthAdjust='spacingAndGlyphs'>PCA (non-robust): 0.07 ms</text>
+<text x='633.91' y='142.78' style='font-size: 14.40px;fill: #7F8C8D; font-family: "Arial";' textLength='111.17px' lengthAdjust='spacingAndGlyphs'>RobCov: 69.8 ms</text>
+<text x='633.91' y='82.17' style='font-size: 14.40px; font-weight: bold;fill: #E69F00; font-family: "Arial";' textLength='107.16px' lengthAdjust='spacingAndGlyphs'>RobPCA: 26.3 s</text>
+<text x='633.91' y='43.37' style='font-size: 14.40px; font-weight: bold;fill: #D93025; font-family: "Arial";' textLength='125.55px' lengthAdjust='spacingAndGlyphs'>RobRPCA: 531.4 s</text>
 <text x='633.91' y='187.35' style='font-size: 14.40px; font-weight: bold;fill: #6BAED6; font-family: "Arial";' textLength='174.00px' lengthAdjust='spacingAndGlyphs'>rSVDdpd (α=0.1): 27.7 ms</text>
 <text x='633.91' y='172.19' style='font-size: 14.40px; font-weight: bold;fill: #2D5FB2; font-family: "Arial";' textLength='174.00px' lengthAdjust='spacingAndGlyphs'>rSVDdpd (α=0.5): 40.3 ms</text>
 <text x='633.91' y='156.89' style='font-size: 14.40px; font-weight: bold;fill: #08306B; font-family: "Arial";' textLength='162.00px' lengthAdjust='spacingAndGlyphs'>rSVDdpd (α=1): 62.2 ms</text>

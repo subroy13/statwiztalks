@@ -598,6 +598,57 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
 <section id="simulation-results" class="slide level2 section-slide" data-background-color="#2d5fb2">
 <h2>Simulation Results</h2>
 </section>
+<section id="runtime-scaling" class="slide level2">
+<h2>Runtime scaling</h2>
+<p>Average runtime (ms) on <span class="math inline">\(n \times 25\)</span> uniform matrices across <span class="math inline">\(n \in [5, 1000]\)</span>.</p>
+<div class="runtime-chart">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="2026-wustl-gss_files/figure-revealjs/runtime-scaling-table2-1.svg" alt="Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD." width="1280"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong><code>rSVDdpd</code> (<span class="math inline">\(\alpha=0.1\)</span>) is faster than <code>RobCov</code> at every <span class="math inline">\(n\)</span>, and all three <span class="math inline">\(\alpha\)</span> choices beat <code>RobCov</code> for <span class="math inline">\(n \ge 100\)</span> (up to <span class="math inline">\(19{,}000\times\)</span> faster than <code>RobRPCA</code> at <span class="math inline">\(n=1000\)</span>).</strong></p>
+<div class="source-note">
+<p>Log-log scale; columns fixed at <span class="math inline">\(25\)</span>. Classical <code>PCA</code> is a non-robust baseline. Source: Table 2 (uniformly distributed <span class="math inline">\(n \times 25\)</span> matrices).</p>
+</div>
+</section>
+<section id="performance-metrics" class="slide level2">
+<h2>Performance Metrics</h2>
+<p><strong>20% contamination</strong>, with dimension <span class="math inline">\(n = 100\)</span> and <span class="math inline">\(p=10,25,50,100,250\)</span>, rank <span class="math inline">\(r = 5\)</span>.</p>
+<div class="pca-chart">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="2026-wustl-gss_files/figure-revealjs/robust-pca-s2b-1.svg" alt="Three panels compare Bias, MAE and SRE across five dimensions for all twelve PCA methods in scenario S2b. The four DPD curves are blue. DPD with alpha equal to one has the lowest reported Bias and MAE at every dimension. Missing RobCov results at p at least fifty are not interpolated." width="1320"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong>DPD (<span class="math inline">\(\alpha=1\)</span>) has the lowest reported Bias and MAE at every dimension.</strong></p>
+<div class="source-note">
+<p>Lower is better for all metrics. Bias/MAE use log scales; SRE uses a linear scale. All panels use a log-scaled <span class="math inline">\(p\)</span> axis. RobCov has no reported results for <span class="math inline">\(p\geq50\)</span>. Source: <a href="https://jmlr.org/papers/volume25/23-1096/23-1096.pdf">Roy, Basu and Ghosh (2024), JMLR, Table 3 (S2b)</a>.</p>
+</div>
+<aside class="notes">
+<p>These are published simulation summaries, not a new simulation run. All 12 methods and all 180 table entries are retained in the source, including the nine NA entries. The four DPD series correspond to robustness tuning parameters alpha = 0.25, 0.5, 0.75 and 1. Scenario S2b uses contamination probability 0.2 with f1 = 3 and f2 = 1. ROBPCA has the lowest reported SRE at p = 10, 25 and 50, while DPD (1) has the lowest SRE at p = 100 and 250. No replicate-level uncertainty is available in the supplied table, so no confidence intervals or significance claims are inferred. Connecting lines guide comparisons across dimensions.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section id="processing-time-per-video-frame" class="slide level2">
 <h2>Processing time per video frame</h2>
 <div class="timing-chart">
@@ -648,57 +699,6 @@ a_i^{(t+1/2)} = \left[ \sum_j \textcolor{brown}{(b_j^{(t)})^2 w_{ij}^{(t)}} \rig
 </div>
 <aside class="notes">
 <p>These are the published F1 values supplied in Table 2, not results from a new simulation. Comparisons use the reported three-decimal scores and do not establish statistical significance. rSVDdpd is the sole maximum for V111, V112, V211, V312, V412, and V511; it ties with OP for V212 and V512. OP leads for V311, and SRPCP leads for V411. Precision and recall remain in the source table; this slide compares F1 only.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="runtime-scaling-for-first-singular-triplet" class="slide level2">
-<h2>Runtime scaling for first singular triplet</h2>
-<p>Average runtime (ms) on <span class="math inline">\(n \times 25\)</span> uniform matrices across <span class="math inline">\(n \in [5, 1000]\)</span>.</p>
-<div class="runtime-chart">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2026-wustl-gss_files/figure-revealjs/runtime-scaling-table2-1.svg" alt="Log-log runtime curves for seven SVD algorithms as matrix rows n increase from 5 to 1000. RobRSVD and RobSVD grow steeply to 531 seconds and 26 seconds at n = 1000, while all three rSVDdpd curves remain under 63 milliseconds and faster than pcaSVD." width="1280"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p><strong><code>rSVDdpd</code> (<span class="math inline">\(\alpha=0.1\)</span>) is faster than <code>pcaSVD</code> at every <span class="math inline">\(n\)</span>, and all three <span class="math inline">\(\alpha\)</span> choices beat <code>pcaSVD</code> for <span class="math inline">\(n \ge 100\)</span> (up to <span class="math inline">\(19{,}000\times\)</span> faster than <code>RobRSVD</code> at <span class="math inline">\(n=1000\)</span>).</strong></p>
-<div class="source-note">
-<p>Log-log scale; columns fixed at <span class="math inline">\(25\)</span>. Classical <code>SVD</code> is a non-robust baseline. Source: Table 2 (uniformly distributed <span class="math inline">\(n \times 25\)</span> matrices).</p>
-</div>
-</section>
-<section id="robust-pca-simulation-scenario-s2b" class="slide level2">
-<h2>Robust PCA: simulation scenario S2b</h2>
-<p><strong>20% contamination</strong>, with dimension <span class="math inline">\(p=10,25,50,100,250\)</span>.</p>
-<div class="pca-chart">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2026-wustl-gss_files/figure-revealjs/robust-pca-s2b-1.svg" alt="Three panels compare Bias, MAE and SRE across five dimensions for all twelve PCA methods in scenario S2b. The four DPD curves are blue. DPD with alpha equal to one has the lowest reported Bias and MAE at every dimension. Missing RobCov results at p at least fifty are not interpolated." width="1320"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<p><strong>DPD (<span class="math inline">\(\alpha=1\)</span>) has the lowest reported Bias and MAE at every dimension.</strong></p>
-<div class="source-note">
-<p>Lower is better for all metrics. Bias/MAE use log scales; SRE uses a linear scale. All panels use a log-scaled <span class="math inline">\(p\)</span> axis. RobCov has no reported results for <span class="math inline">\(p\geq50\)</span>. Source: <a href="https://jmlr.org/papers/volume25/23-1096/23-1096.pdf">Roy, Basu and Ghosh (2024), JMLR, Table 3 (S2b)</a>.</p>
-</div>
-<aside class="notes">
-<p>These are published simulation summaries, not a new simulation run. All 12 methods and all 180 table entries are retained in the source, including the nine NA entries. The four DPD series correspond to robustness tuning parameters alpha = 0.25, 0.5, 0.75 and 1. Scenario S2b uses contamination probability 0.2 with f1 = 3 and f2 = 1. ROBPCA has the lowest reported SRE at p = 10, 25 and 50, while DPD (1) has the lowest SRE at p = 100 and 250. No replicate-level uncertainty is available in the supplied table, so no confidence intervals or significance claims are inferred. Connecting lines guide comparisons across dimensions.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
